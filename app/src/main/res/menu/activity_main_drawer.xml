@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_analysis"
+            android:icon="@drawable/ic_insert_chart_black_48dp"
+            android:title="@string/Analysis" />
+        <item
+            android:id="@+id/nav_grade"
+            android:icon="@drawable/ic_star_black_48dp"
+            android:title="@string/grade" />
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/ic_fiber_new_black_48dp"
+            android:title="@string/info" />
+        <item
+            android:id="@+id/nav_tool"
+            android:icon="@drawable/ic_build_black_24dp"
+            android:title="@string/Tools" />
+    </group>
+
+    <item android:title="其他">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="分享" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="意見與回饋" />
+        </menu>
+    </item>
+
+</menu>

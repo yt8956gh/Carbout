@@ -1,0 +1,3 @@
+int color background_dim_overlay 0x7f060001
+int interpolator msf_interpolator 0x7f0e0001
+int layout dim_overlay 0x7f0f0001

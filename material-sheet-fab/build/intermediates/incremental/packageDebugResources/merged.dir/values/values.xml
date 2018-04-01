@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_dim_overlay">#44000000</color>
+    <item name="msf_interpolator" type="interpolator">@android:interpolator/decelerate_cubic</item>
+</resources>
