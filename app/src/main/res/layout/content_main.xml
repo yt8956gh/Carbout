@@ -41,8 +41,8 @@
         </android.support.design.widget.CoordinatorLayout>
 
         <!-- Your FAB implementation -->
-        <com.gordonwong.materialsheetfab.sample.Fab
-            android:id="@+id/fab"
+        <com.nian.carbout.Fab
+            android:id="@+id/Add_fab"
             style="@style/Widget.MaterialSheetFab.Fab"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"

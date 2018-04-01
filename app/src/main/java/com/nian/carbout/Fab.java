@@ -10,11 +10,6 @@ import android.view.animation.Interpolator;
 import android.view.animation.ScaleAnimation;
 import com.gordonwong.materialsheetfab.AnimatedFab;
 
-/**
- * Created by Gordon Wong on 7/17/2015.
- *
- * Sample floating action button implementation.
- */
 public class Fab extends FloatingActionButton implements AnimatedFab {
 
 	private static final int FAB_ANIM_DURATION = 200;

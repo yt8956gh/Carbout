@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity
     //不能在onCreat方法前使用findViewById，因為這時VIEW還沒建構完成
     private RecyclerView item_list;
     private RVAdapter itemAdapter;
-    private RecyclerView.LayoutManager rLayoutManager;
-    private MaterialSheetFab materialSheetFab;
     private int statusBarColor;
 
     @Override
@@ -44,11 +42,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         InitializeData();
+        setupFab();
 
         Toast toast = Toast.makeText(this,"ENTER",Toast.LENGTH_SHORT);
         toast.show();
 
-        item_list = (RecyclerView)findViewById(R.id.rv);
+        //item_list = (RecyclerView)findViewById(R.id.rv);
 
         items = new ArrayList<>();
         items.add(new Home_item("麥香紅茶250ml","2018/2/9",100,1));
@@ -56,12 +55,12 @@ public class MainActivity extends AppCompatActivity
         items.add(new Home_item("鳳梨酥","2018/2/13",170,3));
 
         //將數量設為可變
-        item_list.setHasFixedSize(true);
-        rLayoutManager = new LinearLayoutManager(this);
-        item_list.setLayoutManager(rLayoutManager);
+        //item_list.setHasFixedSize(true);
+        //rLayoutManager = new LinearLayoutManager(this);
+        //item_list.setLayoutManager(rLayoutManager);
 
 
-        itemAdapter = new RVAdapter(items, this) {
+        /*itemAdapter = new RVAdapter(items, this) {
             @Override
             public void onBindViewHolder(final ViewHolder holder,
                                         final int position) {
@@ -80,16 +79,16 @@ public class MainActivity extends AppCompatActivity
                         }
                 );
             }
-        };
+        };*/
 
         // 設定RecyclerView使用的資料來源物件
         //item_list.setAdapter(itemAdapter);
         // 建立與設定項目操作物件
 
-        ItemTouchHelper.Callback callback =
-                new SimpleItemTouchHelperCallBack(itemAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(item_list);
+        //ItemTouchHelper.Callback callback =
+        //        new SimpleItemTouchHelperCallBack(itemAdapter);
+        //ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        //touchHelper.attachToRecyclerView(item_list);
 
 
 
@@ -97,7 +96,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +106,7 @@ public class MainActivity extends AppCompatActivity
                 clickAdd(view);
             }
         });
+        */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -120,14 +120,14 @@ public class MainActivity extends AppCompatActivity
 
     private void setupFab() {
 
-        Fab fab = (Fab) findViewById(R.id.fab);
+        Fab fab = (Fab) findViewById(R.id.Add_fab);
         View sheetView = findViewById(R.id.fab_sheet);
         View overlay = findViewById(R.id.overlay);
         int sheetColor = getResources().getColor(R.color.background_card);
         int fabColor = getResources().getColor(R.color.theme_accent);
 
         // Create material sheet FAB
-        materialSheetFab = new MaterialSheetFab<>(fab, sheetView, overlay, sheetColor, fabColor);
+        MaterialSheetFab materialSheetFab = new MaterialSheetFab<>(fab, sheetView, overlay, sheetColor, fabColor);
 
         // Set material sheet event listener
         materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
