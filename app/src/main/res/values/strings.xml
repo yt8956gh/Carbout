@@ -11,6 +11,13 @@
     <string name="Tools">快捷工具</string>
     <string name="snackbar_shared_msg">snackbar_shared_msg</string>
     <string name="view">view</string>
+    
+    <string name="transport">交通</string>
+    <string name="shopping">商品</string>
+    <string name="service">服務</string>
+    <string name="power">能資源</string>
+    <string name="trash">廢棄物</string>
+    <string name="self">自訂</string>
 
 
     <string name="all">All</string>
