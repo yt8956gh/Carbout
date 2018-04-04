@@ -92,11 +92,41 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        View.OnClickListener handler = new View.OnClickListener(){
+            public void onClick(View v) {
+                switch(v.getId()) {
+                    case R.id.fab_sheet_item_transport:
+                        Toast.makeText(MainActivity.this, "Transport", Toast.LENGTH_SHORT).show();
+
+                        break;
+                    case R.id.fab_sheet_item_shopping:
+                        Toast.makeText(MainActivity.this, "Shopping", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.fab_sheet_item_power:
+                        Toast.makeText(MainActivity.this, "Power", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.fab_sheet_item_service:
+                        Toast.makeText(MainActivity.this, "Service", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.fab_sheet_item_trash:
+                        Toast.makeText(MainActivity.this, "trash", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.fab_sheet_item_self:
+                        Toast.makeText(MainActivity.this, "self", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        };
+
         // Set material sheet item click listeners
-        //findViewById(R.id.fab_sheet_item_transport).setOnClickListener();
-        //findViewById(R.id.fab_sheet_item_reminder).setOnClickListener(this);
-        //findViewById(R.id.fab_sheet_item_photo).setOnClickListener(this);
-        //findViewById(R.id.fab_sheet_item_note).setOnClickListener(this);
+        findViewById(R.id.fab_sheet_item_transport).setOnClickListener(handler);
+        findViewById(R.id.fab_sheet_item_shopping).setOnClickListener(handler);
+        findViewById(R.id.fab_sheet_item_service).setOnClickListener(handler);
+        findViewById(R.id.fab_sheet_item_power).setOnClickListener(handler);
+        findViewById(R.id.fab_sheet_item_trash).setOnClickListener(handler);
+        findViewById(R.id.fab_sheet_item_self).setOnClickListener(handler);
+
+
     }
 
     private int getStatusBarColor() {
