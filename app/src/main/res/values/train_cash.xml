@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="train_item">
+    <array name="TRA_item">
         <item>站票</item>
         <item>普快</item>
         <item>復興/區間</item>

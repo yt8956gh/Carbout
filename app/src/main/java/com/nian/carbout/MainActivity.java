@@ -126,8 +126,6 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.fab_sheet_item_power).setOnClickListener(handler);
         findViewById(R.id.fab_sheet_item_trash).setOnClickListener(handler);
         findViewById(R.id.fab_sheet_item_self).setOnClickListener(handler);
-
-
     }
 
     private int getStatusBarColor() {
