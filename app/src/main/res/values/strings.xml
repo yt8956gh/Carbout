@@ -11,7 +11,7 @@
     <string name="Tools">快捷工具</string>
     <string name="snackbar_shared_msg">snackbar_shared_msg</string>
     <string name="view">view</string>
-    
+
     <string name="transport">交通</string>
     <string name="shopping">商品</string>
     <string name="service">服務</string>
@@ -33,5 +33,8 @@
     <string name="search">Search</string>
     <string name="shared">Shared</string>
     <string name="sheet_item_pressed">Item pressed</string>
+    <string name="Transport_kilometer">里程數</string>
+    <string name="ticket_price">票價</string>
+    <string name="transport_choose">交通工具</string>
 
 </resources>

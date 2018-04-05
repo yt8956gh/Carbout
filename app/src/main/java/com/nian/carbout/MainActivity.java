@@ -1,5 +1,6 @@
 package com.nian.carbout;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity
                 switch(v.getId()) {
                     case R.id.fab_sheet_item_transport:
                         Toast.makeText(MainActivity.this, "Transport", Toast.LENGTH_SHORT).show();
-
+                        startActivity(new Intent(v.getContext(),Transport_Activity.class));
                         break;
                     case R.id.fab_sheet_item_shopping:
                         Toast.makeText(MainActivity.this, "Shopping", Toast.LENGTH_SHORT).show();
