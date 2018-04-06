@@ -4,21 +4,18 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class Transport_Activity extends AppCompatActivity {
 
     private int  transport_answer=0;
     private int  TRA_answer=0;
     private int  payWay_answer=R.id.cash_pay;//注意初始值
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,25 +37,18 @@ public class Transport_Activity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 transport_answer=position;
+                int View_mode;
 
-                if(position==0)//台鐵
-                {
-                    findViewById(R.id.spinner_choose_TRA).setVisibility(View.VISIBLE);
-                    findViewById(R.id.TRA_textView).setVisibility(View.VISIBLE);
-                    findViewById(R.id.PayWay_RadioGroup).setVisibility(View.VISIBLE);
-                }
-                else//捷運
-                {
-                    findViewById(R.id.spinner_choose_TRA).setVisibility(View.GONE);
-                    findViewById(R.id.TRA_textView).setVisibility(View.GONE);
-                    findViewById(R.id.PayWay_RadioGroup).setVisibility(View.GONE);
-                }
+                if(position==0) View_mode=View.VISIBLE;//台鐵模式
+                else View_mode=View.GONE;//捷運模式
+
+                findViewById(R.id.spinner_choose_TRA).setVisibility(View_mode);
+                findViewById(R.id.TRA_textView).setVisibility(View_mode);
+                findViewById(R.id.PayWay_RadioGroup).setVisibility(View_mode);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         final Spinner spinner_TRA = (Spinner) findViewById(R.id.spinner_choose_TRA);
@@ -69,6 +59,8 @@ public class Transport_Activity extends AppCompatActivity {
         TRA_Adapter.setDropDownViewResource(R.layout.spinner_style);
 
         spinner_TRA.setAdapter(TRA_Adapter);
+
+        //只能用SelectedListener，用ClickedListener會閃退
         spinner_TRA.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -81,6 +73,7 @@ public class Transport_Activity extends AppCompatActivity {
             }
         });
 
+        //確認鍵
         Button button = (Button)findViewById(R.id.button_in_transport);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,49 +81,72 @@ public class Transport_Activity extends AppCompatActivity {
 
                 EditText et = (EditText)findViewById(R.id.ticket_price);
                 String input = et.getText().toString();
+                String notify,title;
 
                 //trim()回傳去除首尾空白符號的子字串
                 if("".equals(et.getText().toString().trim()))//如果輸入為空
                 {
-                    new AlertDialog.Builder(v.getContext())
-                            .setTitle("提醒")
-                            .setMessage("請輸入票價")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            }).show();
+                    notify="請輸入票價";
+                    title="提醒";
+                    dialogShow(v, title, notify);
                 }
                 else
                 {
-                    int price = Integer.parseInt(input),co2 = 0;
-                    co2 = calculate_co2(price);
-                    new AlertDialog.Builder(v.getContext())
-                            .setTitle("計算完成")
-                            .setMessage("本次搭乘共消耗 "+co2+" Kg")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                    int price = Integer.parseInt(input);
+                    float co2 = calculate_co2(price);
 
-                                }
-                            }).show();
+                    title="計算結果";
+
+                    if(co2>1)
+                    {
+                        notify = "本次搭乘共消耗 " + (int)co2 +" kg";
+                    }
+                    else if(co2>=0.01)
+                    {
+                        notify = "本次搭乘共消耗 " + co2 +" kg";
+                    }
+                    else
+                    {
+                        notify = "由於碳足跡過低，本次計算結果不列入";
+                    }
+
+                    dialogShow(v, title, notify);
                 }
+
             }
         });
-
-        }
+    }
 
         //RadioGroup的執行方法
         public void onSelect(View view) {
-            //RadioGroup rg = (RadioGroup) findViewById(R.id.PayWay_RadioGroup);
             payWay_answer=view.getId();
         }
 
 
-        public int calculate_co2(int price)
+        public void dialogShow(View v, String title, String notify)
         {
-            int co2=0;
+            new AlertDialog.Builder(v.getContext())
+                    .setTitle(title)
+                    .setMessage(notify)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Transport_Activity.this.finish();
+                        }
+                    })
+                    .setNeutralButton("再次輸入",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            EditText et = (EditText)findViewById(R.id.ticket_price);
+                            et.setText("");
+                        }
+                    })
+                    .show();
+        }
+
+        public float calculate_co2(int price)
+        {
+            float co2=0;
 
             if(transport_answer==0)//台鐵
             {
@@ -138,20 +154,20 @@ public class Transport_Activity extends AppCompatActivity {
                 {
                     switch(TRA_answer)
                     {
-                        case 0:
-                            co2 = (int)(price/1.46F*54);
+                        case 0://站票
+                            co2 = price/1.46F*54;
                             break;
-                        case 1:
-                            co2 = (int)(price/1.06F*54);
+                        case 1://普快
+                            co2 = price/1.06F*54;
                             break;
-                        case 2:
-                            co2 = (int)(price/1.46F*54);
+                        case 2://復興/區間
+                            co2 = price/1.46F*54;
                             break;
-                        case 3:
-                            co2 = (int)(price/1.75F*54);
+                        case 3://莒光
+                            co2 = price/1.75F*54;
                             break;
-                        case 4:
-                            co2 = (int)(price/2.27F*54);
+                        case 4://自強
+                            co2 = price/2.27F*54;
                             break;
                     }
                 }
@@ -159,18 +175,18 @@ public class Transport_Activity extends AppCompatActivity {
                 {
                     if(TRA_answer==4)//自強
                     {
-                        if(price<=92) co2 = (int)(price/0.9F/1.46F*54);
-                        else co2 = 70*54 + (int)((price-92)/0.9F/1.46F*54);
+                        if(price<=92) co2 = price/0.9F/1.46F*54;
+                        else co2 = 70*54 + (price-92)/0.9F/1.46F*54;
                     }
                     else//其他
                     {
-                        co2 = (int)(price/0.9F/1.46F*54);//電子票證九折優惠
+                        co2 = price/0.9F/1.46F*54;//電子票證九折優惠
                     }
                 }
             }
             else //捷運
             {
-                co2 = (int)((price/5-4)*3 + 3.5F);
+                co2 = ((price/5-4)*3 + 3.5F)*0.08F;
             }
 
             return co2;
