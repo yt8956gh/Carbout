@@ -19,32 +19,21 @@
             android:id="@+id/item_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="6sp"
             android:gravity="left"
-            android:padding="2sp"
-            android:text="祭祀更環保嘉義市以米代金"
+            android:padding="15dp"
+            android:text="Title"
             android:textSize="36sp" />
 
 
 
-            <ImageButton
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
 
             <TextView
                 android:id="@+id/item_text"
-                android:text="傳統社會認為，燃燒越大量紙錢代表越虔誠，嘉義市環保局提倡敬神心誠則
-靈，不燒紙錢或將紙錢減量，推廣讓民眾選擇使用平安米，替代「燒金」祈求
-平安，十分有趣。
-
-目前已有大天宮(五穀王廟)、朝天宮、南興宮及南恩禪寺合作推廣，若市內各
-廟宇均響應以米代金，每年約可減少燃燒紙錢155公噸，減少二氧化碳排放量
-232公噸，相當1萬9,298棵喬木年吸收量，相當可觀。
-
-另外也宣導寺廟光明燈改用LED節能燈泡，迄今共52家寺廟響應，已換LED燈
-泡23萬2,007顆，估計每年減少182萬度用電，節省電費380萬元，總計減少碳排
-放量1,158噸，相當於9萬顆喬木年吸收量。"
+                android:text="Article"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="4dp"
                 android:padding="15dp"

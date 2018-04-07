@@ -1,4 +1,4 @@
-package com.nian.carbout;
+package com.nian.carbout.analysis;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.nian.carbout.DBhelper;
+import com.nian.carbout.R;
 
 import java.util.ArrayList;
 

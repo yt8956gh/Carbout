@@ -1,4 +1,4 @@
-package com.nian.carbout;
+package com.nian.carbout.analysis;
 
 public class co2_item {
     private String name;

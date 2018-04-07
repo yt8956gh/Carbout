@@ -1,4 +1,4 @@
-package com.nian.carbout;
+package com.nian.carbout.transport;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,12 +13,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.nian.carbout.DBhelper;
+import com.nian.carbout.R;
+
 
 public class Transport_Activity extends AppCompatActivity {
 
     private int  transport_answer=0;
     private int  TRA_answer=0;
-    private int  payWay_answer=R.id.cash_pay;//注意初始值
+    private int  payWay_answer= R.id.cash_pay;//注意初始值
     private int again=0;
     private DBhelper dataHelper;
     private SQLiteDatabase db;
