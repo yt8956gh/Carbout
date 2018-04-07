@@ -11,15 +11,18 @@
         <item
             android:id="@+id/nav_grade"
             android:icon="@drawable/ic_star_black_48dp"
-            android:title="@string/grade" />
+            android:title="@string/grade"
+            />
         <item
             android:id="@+id/nav_info"
             android:icon="@drawable/ic_fiber_new_black_48dp"
-            android:title="@string/info" />
+            android:title="@string/info"
+            />
         <item
-            android:id="@+id/nav_tool"
+            android:id="@+id/nav_list"
             android:icon="@drawable/ic_build_black_24dp"
-            android:title="@string/Tools" />
+            android:title="@string/Tools"
+            />
     </group>
 
     <item android:title="其他">
@@ -27,7 +30,8 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="分享" />
+                android:title="分享"
+                />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"

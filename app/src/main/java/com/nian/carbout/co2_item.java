@@ -1,12 +1,12 @@
 package com.nian.carbout;
 
-public class Home_item{
+public class co2_item {
     private String name;
     private String date;
     private int co2;
     private long key;
 
-    public Home_item(String name, String date, int co2, long key)
+    public co2_item(String name, String date, int co2, long key)
     {
         this.name=name;
         this.date=date;

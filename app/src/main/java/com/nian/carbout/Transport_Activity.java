@@ -1,8 +1,6 @@
 package com.nian.carbout;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -15,10 +13,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.SimpleTimeZone;
 
 public class Transport_Activity extends AppCompatActivity {
 
@@ -36,6 +30,7 @@ public class Transport_Activity extends AppCompatActivity {
 
         // The database is not actually created or opened
         // until one of getWritableDatabase() or getReadableDatabase() is called.
+        // #open a SQLite-file named "co2.sqlite"
         dataHelper = new DBhelper(this, "co2.sqlite",null, 1);
 
         db = dataHelper.getWritableDatabase();
@@ -113,7 +108,6 @@ public class Transport_Activity extends AppCompatActivity {
                 {
                     int price = Integer.parseInt(input);
                     float co2 = calculate_co2(price);
-                    long id;
 
                     title="計算結果";
                     again=0;
@@ -131,7 +125,7 @@ public class Transport_Activity extends AppCompatActivity {
                         notify = "由於碳足跡過低，本次計算結果不列入";
                     }
 
-                    saveData(co2);
+                    saveData(co2*1000);
                     dialogShow(v, title, notify);
                 }
 
@@ -141,7 +135,6 @@ public class Transport_Activity extends AppCompatActivity {
 
     public void saveData(float co2)
     {
-
         Long id = dataHelper.append(db, (int)co2, (transport_answer==0)?"台鐵":"捷運");
         Toast.makeText(Transport_Activity.this, "ID: "+ id, Toast.LENGTH_SHORT).show();
     }
@@ -162,12 +155,13 @@ public class Transport_Activity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if(again==0)
                         {
+                            db.close();
                             Transport_Activity.this.finish();//計算完成後結束現在的activity
                         }
                     }
                 })
                 .show();
-        }
+    }
 
     public float calculate_co2(int price)
     {

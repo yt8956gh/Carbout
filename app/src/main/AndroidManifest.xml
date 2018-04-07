@@ -19,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Transport_Activity"></activity>
+        <activity android:name=".Transport_Activity" />
+        <activity android:name=".AnalysisActivity" />
+        <activity android:name=".news.NewsActivity"></activity>
     </application>
 
 </manifest>

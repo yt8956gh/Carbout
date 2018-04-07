@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
+import com.nian.carbout.news.NewsActivity;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private List<Home_item> items;
+    private List<co2_item> items;
 
     //不能在onCreat方法前使用findViewById，因為這時VIEW還沒建構完成
 
@@ -39,17 +40,6 @@ public class MainActivity extends AppCompatActivity
         Toast toast = Toast.makeText(this,"ENTER",Toast.LENGTH_SHORT);
         toast.show();
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Add Item Successfully !!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                clickAdd(view);
-            }
-        });
-        */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -97,23 +87,21 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 switch(v.getId()) {
                     case R.id.fab_sheet_item_transport:
-                        Toast.makeText(MainActivity.this, "Transport", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(v.getContext(),Transport_Activity.class));
                         break;
                     case R.id.fab_sheet_item_shopping:
-                        Toast.makeText(MainActivity.this, "Shopping", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.fab_sheet_item_power:
-                        Toast.makeText(MainActivity.this, "Power", Toast.LENGTH_SHORT).show();
+
                         break;
                     case R.id.fab_sheet_item_service:
-                        Toast.makeText(MainActivity.this, "Service", Toast.LENGTH_SHORT).show();
+
                         break;
                     case R.id.fab_sheet_item_trash:
-                        Toast.makeText(MainActivity.this, "trash", Toast.LENGTH_SHORT).show();
+
                         break;
                     case R.id.fab_sheet_item_self:
-                        Toast.makeText(MainActivity.this, "self", Toast.LENGTH_SHORT).show();
+
                         break;
                 }
             }
@@ -181,12 +169,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_analysis) {
-            // Handle the camera action
+            startActivity(new Intent(MainActivity.this, AnalysisActivity.class));
         } else if (id == R.id.nav_grade) {
 
         } else if (id == R.id.nav_info) {
-
-        } else if (id == R.id.nav_tool) {
+            startActivity(new Intent(MainActivity.this, NewsActivity.class));
+        } else if (id == R.id.nav_list) {
 
         } else if (id == R.id.nav_share) {
 

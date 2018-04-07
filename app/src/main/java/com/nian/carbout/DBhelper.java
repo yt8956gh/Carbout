@@ -37,7 +37,7 @@ public class DBhelper extends SQLiteOpenHelper {
     {
         Long id;
         Date dNow = new Date();//得到Date實例
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
         ContentValues cv = new ContentValues();
         cv.put("date", dateFormatter.format(dNow));
@@ -47,4 +47,5 @@ public class DBhelper extends SQLiteOpenHelper {
 
         return id;
     }
+
 }
