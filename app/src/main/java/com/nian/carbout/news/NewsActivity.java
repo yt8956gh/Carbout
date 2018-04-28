@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import com.nian.carbout.R;
 import com.nian.carbout.analysis.MyAdapter;
@@ -51,6 +52,12 @@ public class NewsActivity extends AppCompatActivity {
                 "詳情請見大台南公車網站 :\n" +
                 "http://2384.tainan.gov.tw/NewTNBusWeb/", R.drawable.article_3));
 
+
+        getSupportActionBar().hide();
+
+        Toolbar toolbar = findViewById(R.id.toolbarNews);
+
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
         RecyclerView recyclerView = findViewById(R.id.RecyclerViewInNews);
 

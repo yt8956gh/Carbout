@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval"
+    android:useLevel="false" >
+    <solid android:color="@color/background_card" />
+    <padding
+        android:left="2dp"
+        android:top="1dp"
+        android:right="2dp"
+        android:bottom="1dp" />
+    <gradient
+        android:angle="90"
+        android:endColor="@color/colorPrimary"
+        android:startColor="@color/colorPrimaryDark" />
+    <stroke
+        android:width="20dp"
+        android:color="@color/colorPrimaryLight" />
+    <size android:width="25dp"
+        android:height="25dp" />
+</shape>

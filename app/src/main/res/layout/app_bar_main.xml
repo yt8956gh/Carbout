@@ -5,52 +5,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_bitmap"
-    tools:context="com.nian.carbout.MainActivity">
 
+    tools:context="com.nian.carbout.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="61dp"
-        android:layout_gravity="center"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="50dp"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:text="@string/todays_carbon_foot"/>
+            android:layout_height="300dp"
+            android:background="@drawable/background"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center|top"
+                android:background="@drawable/circle"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="50dp"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:text="@string/todays_carbon_foot"/>
 
 
-            <TextView
-                android:id="@+id/today_co2"
+                <TextView
+                    android:id="@+id/today_co2"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+                    android:textSize="60sp"
+                    android:text="TEST"
+                    />
+
+                <TextView
+                    android:id="@+id/co2_unit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="20sp"
+                    android:text="kg" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart_line"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="60sp"
-                android:text="TEST" />
-
-            <TextView
-                android:id="@+id/co2_unit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="20sp"
-                android:text="kg" />
-
-
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/chart_line"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="70dp"
-            android:layout_marginBottom="100dp"/>
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="100dp"/>
 
     </LinearLayout>
+
+
 
 
 
@@ -69,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 

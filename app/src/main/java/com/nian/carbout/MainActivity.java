@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.getBackground().setAlpha(0);
+        toolbar.setTitle(" ");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.background_card));
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity
     {
         TextView today_co2 = findViewById(R.id.today_co2);
         today_co2.setText(String.valueOf(usage[6]/1000));
-        today_co2.setTextColor(Color.rgb(0, 88, 122));
+        today_co2.setTextColor(Color.rgb(255, 255, 255));
 
 
     }
@@ -169,7 +171,7 @@ public class MainActivity extends AppCompatActivity
                 Color.rgb(0, 136, 145));
 
         set.setValueTextSize(15f);
-        set.setValueTextColor(Color.rgb(200,200,200));
+        set.setValueTextColor(Color.rgb(0, 88, 122));
 
         BarData data = new BarData(set);
         data.setBarWidth(0.9f); // set custom bar width

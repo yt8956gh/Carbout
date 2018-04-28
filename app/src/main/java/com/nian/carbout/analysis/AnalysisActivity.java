@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.nian.carbout.DBhelper;
@@ -25,11 +26,14 @@ public class AnalysisActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_analysis);
 
+        getSupportActionBar().hide();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarAnalysis);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        //setSupportActionBar(toolbar);
 
 
         dataHelper = new DBhelper(this, "co2.sqlite",null, 1);

@@ -8,6 +8,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme2" parent = "AppTheme.Base"/>
+
+    <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -36,25 +47,7 @@
 
     <style name="ThemeOverlay.MaterialSheetFab.ActionBar.Popup" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="Widget.MaterialSheetFab.ToolBar" parent="">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?attr/actionBarSize</item>
-        <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:theme">@style/ThemeOverlay.MaterialSheetFab.ActionBar</item>
-        <item name="popupTheme">@style/ThemeOverlay.MaterialSheetFab.ActionBar.Popup</item>
-        <item name="android:elevation" tools:ignore="NewApi">@dimen/toolbar_elevation</item>
-        <item name="layout_scrollFlags">scroll|enterAlways</item>
-    </style>
 
-    <style name="Widget.MaterialSheetFab.TabLayout" parent="">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?attr/actionBarSize</item>
-        <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:theme">@style/ThemeOverlay.MaterialSheetFab.ActionBar</item>
-        <item name="android:elevation" tools:ignore="NewApi">@dimen/toolbar_elevation</item>
-        <item name="tabMode">fixed</item>
-        <item name="tabGravity">fill</item>
-    </style>
 
     <style name="Widget.MaterialSheetFab.Fab" parent="">
         <item name="android:layout_width">wrap_content</item>

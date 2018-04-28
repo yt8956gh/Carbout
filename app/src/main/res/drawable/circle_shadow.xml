@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="oval"
+            android:useLevel="false" >
+            <solid android:color="@color/background_card" />
+            <padding
+                android:left="2dp"
+                android:top="1dp"
+                android:right="2dp"
+                android:bottom="1dp" />
+            <solid
+                android:color="@color/colorPrimary" />
+            <stroke
+                android:width="20dp"
+                android:color="@color/colorPrimaryLight" />
+            <size android:width="25dp"
+                android:height="25dp" />
+        </shape>
+
+    </item>
+
+    <item android:left="0dp" android:right="10dp" android:top="0dp" android:bottom="10dp">
+        <shape
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="oval"
+            android:useLevel="false" >
+            <solid android:color="@color/theme_primary_dark2" />
+        </shape>
+
+    </item>
+
+</selector>
