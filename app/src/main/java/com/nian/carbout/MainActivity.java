@@ -1,6 +1,9 @@
 package com.nian.carbout;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,11 +12,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.stetho.Stetho;
+import com.github.mikephil.charting.charts.BarChart;
+
+import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 import com.nian.carbout.analysis.AnalysisActivity;
@@ -21,39 +38,173 @@ import com.nian.carbout.analysis.co2_item;
 import com.nian.carbout.news.NewsActivity;
 import com.nian.carbout.transport.Transport_Activity;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private List<co2_item> items;
+    //final int DATA_COUNT=7;
 
     //不能在onCreat方法前使用findViewById，因為這時VIEW還沒建構完成
 
     private int statusBarColor;
+    private int[] usage = new int[7];
+    final ArrayList<String> week = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                        .enableDumpapp(
+                                Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(
+                                Stetho.defaultInspectorModulesProvider(this))
+                        .build());
+
         setupFab();
 
-        Toast toast = Toast.makeText(this,"ENTER",Toast.LENGTH_SHORT);
-        toast.show();
+        setupWeek();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setupChart();
+
+        setupTodayCo2();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.getBackground().setAlpha(0);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+
+    private void setupTodayCo2()
+    {
+        TextView today_co2 = findViewById(R.id.today_co2);
+        today_co2.setText(String.valueOf(usage[6]/1000));
+        today_co2.setTextColor(Color.rgb(0, 88, 122));
+
+
+    }
+
+    private void setupWeek()
+    {
+        Calendar cal = Calendar.getInstance();
+        String[] week_zh = new String[]{"日","一","二","三","四","五","六"};
+
+        //取得星期幾的整數值
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
+        for(int i=0;i<7;i++)
+        {
+            week.add(week_zh[dayOfWeek%7]);
+            dayOfWeek++;
+        }
+    }
+
+    private void setupChart()
+    {
+        DBhelper dataHelper;
+        SQLiteDatabase db;
+        int date_cmp,date_tmp,co2_tmp;
+
+        BarChart chart = (BarChart)findViewById(R.id.chart_line);
+
+        //計算七天前的日期
+        Date dNow = new Date();//得到Date實例
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd");
+        date_cmp = Integer.parseInt(dateFormatter.format(dNow))-7+1;
+
+
+        //處理SQLite相關資料
+        dataHelper = new DBhelper(this, "co2.sqlite",null, 1);
+        db = dataHelper.getWritableDatabase();
+        //依據條件搜尋SQLite，並回傳資料指標
+        Cursor c = db.rawQuery("SELECT * FROM main WHERE date >="+date_cmp, null);
+        c.moveToFirst();
+
+        //運算七天內的co2數據
+        for(int i = 0; i < c.getCount(); i++) {
+
+            date_tmp =  c.getInt(1);
+            co2_tmp = c.getInt(3);
+
+            usage[date_tmp - date_cmp] += co2_tmp;
+
+            //移動至下一筆
+            c.moveToNext();
+        }
+
+        c.close();
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        //xAxis.setValueFormatter(formatter);
+
+        List entries = new ArrayList<>();
+
+        for(int i=0;i<7;i++)
+        {
+            entries.add(new BarEntry(i, usage[i]/1000));
+        }
+
+        BarDataSet set = new BarDataSet(entries, null);
+
+        //ColorSet只接受color.rgb型態的顏色敘述
+        set.setColors(Color.rgb(0, 88, 122),
+                Color.rgb(0, 136, 145));
+
+        set.setValueTextSize(15f);
+        set.setValueTextColor(Color.rgb(200,200,200));
+
+        BarData data = new BarData(set);
+        data.setBarWidth(0.9f); // set custom bar width
+        chart.setData(data);
+        chart.setFitBars(true); // make the x-axis fit exactly all bars
+        chart.setDescription(null);
+        chart.getLegend().setEnabled(false);//將右下角的方塊拿掉
+        configChartAxis(chart);
+        chart.invalidate(); // refresh
+    }
+
+    private void configChartAxis(BarChart chart_bar){
+
+
+        //重寫x軸欄位
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return week.get((int) value);
+            }
+
+        };
+
+        XAxis xAxis = chart_bar.getXAxis();
+        xAxis.setValueFormatter(formatter);
+        //xAxis.setDrawGridLines(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        YAxis leftYAxis = chart_bar.getAxisLeft();
+        //leftYAxis.setGranularity(60);
+        leftYAxis.setEnabled(false);
+
+        YAxis RightYAxis = chart_bar.getAxisRight();
+        RightYAxis.setEnabled(false);   //不顯示右側
     }
 
     private void setupFab() {

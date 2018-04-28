@@ -39,5 +39,7 @@
     <string name="pay_way">支付方式：</string>
     <string name="TRA">台鐵車種：</string>
     <string name="OK">確認</string>
+    <string name="label_description">一周碳足跡</string>
+    <string name="todays_carbon_foot">今日碳足跡</string>
 
 </resources>

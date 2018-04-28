@@ -2,11 +2,11 @@ package com.nian.carbout.analysis;
 
 public class co2_item {
     private String name;
-    private String date;
+    private int date;
     private int co2;
     private long key;
 
-    public co2_item(String name, String date, int co2, long key)
+    public co2_item(String name, int date, int co2, long key)
     {
         this.name=name;
         this.date=date;
@@ -31,12 +31,12 @@ public class co2_item {
 
     public void setCO2(int co2) {this.co2 = co2; }
 
-    public String getDate() { return date; }
+    public int getDate() { return date; }
 
-    public void setDate(String date) { this.date = date; }
+    public void setDate(int date) { this.date = date; }
 
     @Override
     public String toString() {
-        return String.format("%d, %s, %b", getKey(), getName(), getCO2());
+        return (getDate()+":"+getName()+":"+getCO2());
     }
 }

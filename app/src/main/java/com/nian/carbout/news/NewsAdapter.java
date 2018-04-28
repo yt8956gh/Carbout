@@ -5,10 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nian.carbout.R;
-import com.nian.carbout.analysis.co2_item;
 
 import java.util.ArrayList;
 
@@ -31,6 +31,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         ViewHolder holder = new ViewHolder(view);
         holder.cell_title = view.findViewById(R.id.item_title);
         holder.cell_text = view.findViewById(R.id.item_text);
+        holder.cell_image = view.findViewById(R.id.item_image);
 
         return holder;
     }
@@ -42,6 +43,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         holder.cell_title.setText(cell.getTitle());
         holder.cell_text.setText(cell.getText());
+        holder.cell_image.setImageResource(cell.getImageID());
     }
 
     @Override//回傳陣列數量
@@ -53,6 +55,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         public TextView cell_title;
         public TextView cell_text;
+        public ImageView cell_image;
 
         public ViewHolder(View itemView) {
 

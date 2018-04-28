@@ -19,7 +19,7 @@ public class DBhelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE  TABLE main " +
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                "date VARCHAR NOT NULL , " +
+                "date INTEGER NOT NULL , " +
                 "info VARCHAR NOT NULL, " +
                 "co2 INTEGER)");
     }
@@ -37,10 +37,10 @@ public class DBhelper extends SQLiteOpenHelper {
     {
         Long id;
         Date dNow = new Date();//得到Date實例
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd");
 
         ContentValues cv = new ContentValues();
-        cv.put("date", dateFormatter.format(dNow));
+        cv.put("date", Integer.parseInt(dateFormatter.format(dNow)));
         cv.put("info", info);
         cv.put("co2", String.valueOf(co2));
         id = db.insert("main",null,cv);

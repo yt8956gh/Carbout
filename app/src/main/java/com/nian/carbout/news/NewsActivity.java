@@ -25,7 +25,7 @@ public class NewsActivity extends AppCompatActivity {
                 "迄今已超過1萬2千家販售3種以上環保標章產品，為方便民眾採購環保產品" +
                 "，環保署於97年4月起開設綠色生活資訊網，其中的綠色商店系統，可查找政" +
                 "府認證之綠色商店 。\n" +
-                "馬上尋找身邊的綠色店家吧！"));
+                "馬上尋找身邊的綠色店家吧！", R.drawable.article_1));
 
         data.add(new news_item("祭祀更環保\n嘉義市以米代金",
                 "傳統社會認為，燃燒越大量紙錢代表越虔誠，嘉義市環保局提倡敬神心誠則" +
@@ -39,9 +39,9 @@ public class NewsActivity extends AppCompatActivity {
                 "放量1,158噸，相當於9萬顆喬木年吸收量。\n\n" +
                 "嘉義市環保局也為大家整理出環保寺廟，可以來此觀看更詳細的介紹 :\n" +
                 "http://www.cycepb.gov.tw/Green/life_5.asp\n\n" +
-                "下次大家去寺廟拜拜時，不妨也嘗試這些環保祭祀吧！"));
+                "下次大家去寺廟拜拜時，不妨也嘗試這些環保祭祀吧！", R.drawable.article_2));
 
-        data.add(new news_item("古都電巴新紀元\n台南市電動巴士營運",
+        data.add(new news_item("古都電巴新紀元\n台南電動巴士營運",
                 "古都台南電動巴士正式上路啦！經濟部輔導、臺南市政府推動、四方電巴公" +
                 "司營運的「77路」公車於106年3月23日起正式通車營運。\n\n" +
                 "公共運輸處處長黃耀國表示，77路電動巴士行駛時間為每日早上6點到下午10" +
@@ -49,7 +49,7 @@ public class NewsActivity extends AppCompatActivity {
                 "院、成大校園、海安商圈、百貨公司以及永華市政中心，無論觀光、洽公、通" +
                 "勤都十分方便，希望各位多加利用。\n\n" +
                 "詳情請見大台南公車網站 :\n" +
-                "http://2384.tainan.gov.tw/NewTNBusWeb/"));
+                "http://2384.tainan.gov.tw/NewTNBusWeb/", R.drawable.article_3));
 
 
         RecyclerView recyclerView = findViewById(R.id.RecyclerViewInNews);
