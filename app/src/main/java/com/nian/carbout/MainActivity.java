@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity
     private int statusBarColor;
     private int[] usage = new int[7];
     final ArrayList<String> week = new ArrayList<>();
+    //BarChart chart = (BarChart)findViewById(R.id.chart_line);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +96,19 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        setupWeek();
+        setupChart();
+        setupTodayCo2();
+
+        Toast.makeText(this,"resume!!",Toast.LENGTH_SHORT).show();
+        //onCreate(null);
+    }
+
 
     private void setupTodayCo2()
     {
@@ -111,6 +127,8 @@ public class MainActivity extends AppCompatActivity
         //取得星期幾的整數值
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 
+        week.clear();
+
         for(int i=0;i<7;i++)
         {
             week.add(week_zh[dayOfWeek%7]);
@@ -120,6 +138,8 @@ public class MainActivity extends AppCompatActivity
 
     private void setupChart()
     {
+
+
         DBhelper dataHelper;
         SQLiteDatabase db;
         int date_cmp,date_tmp,co2_tmp;
@@ -138,6 +158,13 @@ public class MainActivity extends AppCompatActivity
         //依據條件搜尋SQLite，並回傳資料指標
         Cursor c = db.rawQuery("SELECT * FROM main WHERE date >="+date_cmp, null);
         c.moveToFirst();
+
+        //usage歸零，以免加到上一次的數據
+        for(int i=0;i<7;i++)
+        {
+            usage[i]=0;
+        }
+
 
         //運算七天內的co2數據
         for(int i = 0; i < c.getCount(); i++) {
@@ -206,7 +233,7 @@ public class MainActivity extends AppCompatActivity
         leftYAxis.setEnabled(false);
 
         YAxis RightYAxis = chart_bar.getAxisRight();
-        RightYAxis.setEnabled(false);   //不顯示右側
+        RightYAxis.setEnabled(false);//不顯示右側
     }
 
     private void setupFab() {

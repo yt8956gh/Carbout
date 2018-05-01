@@ -118,17 +118,19 @@ public class Transport_Activity extends AppCompatActivity {
                     if(co2>1)
                     {
                         notify = "本次搭乘共消耗 " + (int)co2 +" kg";
+                        saveData(co2*1000);
                     }
                     else if(co2>=0.01)
                     {
                         notify = "本次搭乘共消耗 " + co2 +" kg";
+                        saveData(co2*1000);
                     }
                     else
                     {
                         notify = "由於碳足跡過低，本次計算結果不列入";
                     }
 
-                    saveData(co2*1000);
+                    //saveData(co2*1000);
                     dialogShow(v, title, notify);
                 }
 
