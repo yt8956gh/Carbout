@@ -22,9 +22,7 @@ import android.widget.Toast;
 import com.facebook.stetho.Stetho;
 import com.github.mikephil.charting.charts.BarChart;
 
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -34,12 +32,12 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 import com.nian.carbout.analysis.AnalysisActivity;
-import com.nian.carbout.analysis.co2_item;
 import com.nian.carbout.news.NewsActivity;
 import com.nian.carbout.transport.Transport_Activity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -55,6 +53,8 @@ public class MainActivity extends AppCompatActivity
     private int statusBarColor;
     private int[] usage = new int[7];
     final ArrayList<String> week = new ArrayList<>();
+    private Integer[] date_of_week = new Integer[7];
+    private int day_of_7_before=0,date_cmp=0;
     //BarChart chart = (BarChart)findViewById(R.id.chart_line);
 
 
@@ -122,10 +122,12 @@ public class MainActivity extends AppCompatActivity
     private void setupWeek()
     {
         Calendar cal = Calendar.getInstance();
+        Date dNow;
         String[] week_zh = new String[]{"日","一","二","三","四","五","六"};
-
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd");
         //取得星期幾的整數值
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        cal.add(Calendar.DAY_OF_YEAR,-7);
 
         week.clear();
 
@@ -133,7 +135,26 @@ public class MainActivity extends AppCompatActivity
         {
             week.add(week_zh[dayOfWeek%7]);
             dayOfWeek++;
+
+            cal.add(Calendar.DAY_OF_YEAR,1);
+            dNow = cal.getTime();
+            date_of_week[i] = Integer.parseInt(dateFormatter.format(dNow));
+            //Log.d("day_of_week" , date_of_week[i]+"");
         }
+
+        for(int i=0;i<7;i++)
+        {
+            Log.d("day_of_week" , date_of_week[i]+"");
+        }
+
+        date_cmp = Integer.parseInt(dateFormatter.format(cal.getTime()));
+
+
+        //計算七天前的日期
+        //;//得到Date實例
+
+        //Toast.makeText(this,"data_cmp:"+date_cmp,Toast.LENGTH_SHORT).show();
+
     }
 
     private void setupChart()
@@ -142,21 +163,20 @@ public class MainActivity extends AppCompatActivity
 
         DBhelper dataHelper;
         SQLiteDatabase db;
-        int date_cmp,date_tmp,co2_tmp;
+        int date_tmp,co2_tmp;
+
 
         BarChart chart = (BarChart)findViewById(R.id.chart_line);
 
-        //計算七天前的日期
-        Date dNow = new Date();//得到Date實例
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd");
-        date_cmp = Integer.parseInt(dateFormatter.format(dNow))-7+1;
+
 
 
         //處理SQLite相關資料
         dataHelper = new DBhelper(this, "co2.sqlite",null, 1);
         db = dataHelper.getWritableDatabase();
+
         //依據條件搜尋SQLite，並回傳資料指標
-        Cursor c = db.rawQuery("SELECT * FROM main WHERE date >="+date_cmp, null);
+        Cursor c = db.rawQuery("SELECT * FROM main WHERE date >="+date_of_week[0], null);
         c.moveToFirst();
 
         //usage歸零，以免加到上一次的數據
@@ -172,7 +192,7 @@ public class MainActivity extends AppCompatActivity
             date_tmp =  c.getInt(1);
             co2_tmp = c.getInt(3);
 
-            usage[date_tmp - date_cmp] += co2_tmp;
+            usage[Arrays.asList(date_of_week).indexOf(date_tmp)]+=co2_tmp;
 
             //移動至下一筆
             c.moveToNext();
