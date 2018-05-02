@@ -50,9 +50,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         date = date_number/10000 + "-" + date_number%10000/100 +"-" + date_number%100 ;
 
         //依據數字大小，顯示適當單位
-        if((cell.getCO2()/1000.0F)>1)
+        if((cell.getCO2()/1000)!=0)
         {
-            co2 = (int)(cell.getCO2()/1000F);
+            co2 = (int)(cell.getCO2()/1000);
             unit="kg";
         }
         else

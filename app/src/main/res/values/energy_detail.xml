@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="power_item">
+        <item>家用電</item>
+        <item>風力</item>
+        <item>太陽能</item>
+    </array>
+
+    <array name="fuel_item">wa
+        <item>天然氣</item>
+        <item>液化石油氣(桶裝瓦斯)</item>
+    </array>
+
+    <array name="water_item">
+        <item>自來水</item>
+    </array>
+
+
+</resources>

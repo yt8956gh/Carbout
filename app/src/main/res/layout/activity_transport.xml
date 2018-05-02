@@ -7,6 +7,31 @@
     tools:context=".transport.Transport_Activity"
     android:orientation="horizontal">
 
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarTransport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:singleLine="true"
+            android:textColor="@color/background_card"
+            android:text="@string/transport"
+            android:textSize="20sp" />
+
+
+    </android.support.v7.widget.Toolbar>
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -14,24 +39,24 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/ticket_price"
         android:textColor="@color/theme_primary_dark2"
         android:textSize="@dimen/normal_textsize"
         app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarTransport" />
 
     <EditText
         android:id="@+id/ticket_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:layout_marginTop="8dp"
         android:ems="12"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarTransport" />
 
     <TextView
         android:id="@+id/textView2"
@@ -140,6 +165,8 @@
         android:layout_marginTop="10dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintTop_toBottomOf="@+id/spinner_choose_transport" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

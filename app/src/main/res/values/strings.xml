@@ -41,5 +41,9 @@
     <string name="OK">確認</string>
     <string name="label_description">一周碳足跡</string>
     <string name="todays_carbon_foot">今日碳足跡</string>
+    <string name="co2_of_week">一周碳足跡</string>
+    <string name="fuel">燃料</string>
+    <string name="water">水資源</string>
+    <string name="elec">電力</string>
 
 </resources>

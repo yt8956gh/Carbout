@@ -11,11 +11,11 @@
         android:bottom="1dp" />
     <gradient
         android:angle="90"
-        android:endColor="@color/colorAccent"
-        android:startColor="@color/colorAccentDark" />
+        android:endColor="@color/red"
+        android:startColor="@color/redDark" />
     <stroke
         android:width="20dp"
-        android:color="@color/colorAccentstoke" />
+        android:color="@color/redLight" />
     <size android:width="25dp"
         android:height="25dp" />
 </shape>

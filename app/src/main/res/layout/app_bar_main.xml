@@ -25,6 +25,7 @@
                 android:layout_height="250dp"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center|top"
+                android:id="@+id/circle_in_main"
                 android:background="@drawable/circle"
                 android:orientation="vertical">
 
@@ -57,12 +58,52 @@
             </LinearLayout>
         </LinearLayout>
 
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/chart_line"
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="5dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="100dp"/>
+                android:orientation="vertical"
+                >
+
+
+
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/chart_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/darker_gray"  />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/co2_of_week"
+                    android:layout_margin="5dp"
+                    android:textSize="18sp"
+                    android:gravity="center"/>
+
+
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+
+
 
     </LinearLayout>
 

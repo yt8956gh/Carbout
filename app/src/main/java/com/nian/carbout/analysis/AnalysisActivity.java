@@ -33,8 +33,6 @@ public class AnalysisActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbarAnalysis);
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        //setSupportActionBar(toolbar);
-
 
         dataHelper = new DBhelper(this, "co2.sqlite",null, 1);
         db = dataHelper.getWritableDatabase();

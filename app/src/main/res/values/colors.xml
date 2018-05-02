@@ -3,6 +3,8 @@
     <color name="colorPrimary">#00BFA5</color>
     <color name="colorPrimaryDark">#009688</color>
     <color name="colorAccent">#FF6F00</color>
+    <color name="colorAccentDark">#c85700</color>
+    <color name="colorAccentstoke">#fbaf62</color>
     <color name="colorPrimaryLight">#AAFFEA</color>
 
     <color name="theme_primary">#00BCD4</color>
@@ -15,6 +17,14 @@
 
     <color name="text_black_87">#de000000</color>
     <color name="text_white_87">#deFFFFFF</color>
+
+
+    <color name="redDark">#a50000</color>
+    <color name="red">#d60000</color>
+    <color name="redLight">#e34d4d</color>
+
+
+
 
     <color name="chart_1">#d20962</color>
     <color name="chart_2">#f47721</color>

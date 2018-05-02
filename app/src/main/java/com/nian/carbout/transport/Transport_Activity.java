@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,6 +31,12 @@ public class Transport_Activity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport);
+
+        getSupportActionBar().hide();
+
+        Toolbar toolbar = findViewById(R.id.toolbarTransport);
+
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
         // The database is not actually created or opened
         // until one of getWritableDatabase() or getReadableDatabase() is called.
@@ -141,7 +148,7 @@ public class Transport_Activity extends AppCompatActivity {
     public void saveData(float co2)
     {
         Long id = dataHelper.append(db, (int)co2, (transport_answer==0)?"台鐵":"捷運");
-        Toast.makeText(Transport_Activity.this, "ID: "+ id, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(Transport_Activity.this, "ID: "+ id, Toast.LENGTH_SHORT).show();
     }
 
 

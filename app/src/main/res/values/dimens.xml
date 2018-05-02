@@ -34,6 +34,6 @@
     <dimen name="note_textsize">14sp</dimen>
     <dimen name="note_title_textsize">24sp</dimen>
 
-    <dimen name="normal_textsize">16dp</dimen>
+    <dimen name="normal_textsize">16sp</dimen>
 
 </resources>
