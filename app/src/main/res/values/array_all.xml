@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="incineration_item">
+        <item>北部</item>
+        <item>中部</item>
+        <item>南部</item>
+    </array>
+
+    <array name="waste_water_item">
+        <item>汙水處裡</item>
+    </array>
+
+    <array name="recover_item">
+        <item>資源回收</item>
+    </array>
+</resources>

@@ -4,105 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".energy.EnergyActivity"
+    tools:context=".waste.WasteActivity"
     android:background="@drawable/background">
-
 
     <android.support.v7.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/toolbarEnergy"
+        android:id="@+id/toolbarwaste"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         android:background="@color/colorPrimary">
 
         <TextView
-            android:id="@+id/toolbar_title"
+            android:id="@+id/toolbar_waste"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
             android:singleLine="true"
             android:textColor="@color/background_card"
-            android:text="@string/power"
+            android:text="@string/waste"
             android:textSize="20sp" />
 
     </android.support.v7.widget.Toolbar>
 
-
-    <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView
         android:id="@+id/cardView_of_category"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         app:cardUseCompatPadding="true"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarEnergy">
+        app:layout_constraintTop_toBottomOf="@+id/toolbarwaste">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="廢棄物類型"
+                android:textSize="@dimen/normal_textsize"
                 android:layout_margin="10dp"
-                android:gravity="center_horizontal"
-                android:text="能源類型"
-                android:textSize="@dimen/normal_textsize" />
-
+                android:gravity="center_horizontal"/>
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
-                android:background="@android:color/darker_gray" />
+                android:background="@android:color/darker_gray"/>
 
             <RadioGroup
-                android:id="@+id/energy_category_RadioGroup"
+                android:id="@+id/waste_category_RadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:divider="?android:attr/dividerHorizontal"
                 android:orientation="horizontal"
+                android:divider="?android:attr/dividerHorizontal"
                 android:showDividers="middle">
 
 
                 <RadioButton
-                    android:id="@+id/water"
+                    android:id="@+id/incineration"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="16dp"
                     android:checked="true"
                     android:onClick="onSelect"
-                    android:text="@string/water"
-                    android:textSize="@dimen/normal_textsize" />
+                    android:text="焚化"
+                    android:textSize="@dimen/normal_textsize"
+                    />
 
                 <RadioButton
-                    android:id="@+id/power"
+                    android:id="@+id/waste_water"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="16dp"
                     android:onClick="onSelect"
-                    android:text="@string/elec"
+                    android:text="廢水"
                     android:textSize="@dimen/normal_textsize" />
 
 
                 <RadioButton
-                    android:id="@+id/fuel"
+                    android:id="@+id/recover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="16dp"
                     android:onClick="onSelect"
-                    android:text="@string/fuel"
+                    android:text="回收"
                     android:textSize="@dimen/normal_textsize" />
 
             </RadioGroup>
 
         </LinearLayout>
+
+
+
 
 
     </android.support.v7.widget.CardView>
@@ -141,22 +143,23 @@
                 android:background="@android:color/darker_gray" />
 
             <LinearLayout
+                android:id="@+id/incineration_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/energy_detail"
+                    android:id="@+id/waste_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:text="能源細項"
+                    android:text="焚化爐\n位　置"
                     android:textColor="@color/theme_primary_dark2"
                     android:textSize="@dimen/normal_textsize" />
 
                 <Spinner
-                    android:id="@+id/spinner_choose_energy_detail"
+                    android:id="@+id/spinner_choose_waste_detail"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -184,16 +187,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:text="用量"
+                    android:text="重量"
                     android:textColor="@color/theme_primary_dark2"
                     android:textSize="@dimen/normal_textsize" />
 
                 <EditText
-                    android:id="@+id/edit_energy"
+                    android:id="@+id/edit_waste"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="11"
+                    android:ems="10"
                     android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="kg"
+                    android:textColor="@color/theme_primary_dark2"
+                    android:textSize="@dimen/normal_textsize" />
 
 
             </LinearLayout>
@@ -205,7 +216,7 @@
     </android.support.v7.widget.CardView>
 
     <Button
-        android:id="@+id/button_in_energy"
+        android:id="@+id/button_in_waste"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -217,7 +228,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView3" />
 
     <Button
-        android:id="@+id/button_in_energy_cancel"
+        android:id="@+id/button_in_waste_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -226,7 +237,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:backgroundTint="@color/background_card"
         android:text="取消"
-        app:layout_constraintEnd_toStartOf="@+id/button_in_energy"
+        app:layout_constraintEnd_toStartOf="@+id/button_in_waste"
         app:layout_constraintTop_toBottomOf="@+id/cardView3" />
 
 

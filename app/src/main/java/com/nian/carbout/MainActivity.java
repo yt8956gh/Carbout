@@ -33,9 +33,11 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 import com.nian.carbout.analysis.AnalysisActivity;
+import com.nian.carbout.commodity.CommodityActivity;
 import com.nian.carbout.energy.EnergyActivity;
 import com.nian.carbout.news.NewsActivity;
 import com.nian.carbout.transport.Transport_Activity;
+import com.nian.carbout.waste.WasteActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -138,6 +140,7 @@ public class MainActivity extends AppCompatActivity
                         startActivity(new Intent(v.getContext(),Transport_Activity.class));
                         break;
                     case R.id.fab_sheet_item_shopping:
+                        startActivity(new Intent(v.getContext(), CommodityActivity.class));
                         break;
                     case R.id.fab_sheet_item_power:
                         startActivity(new Intent(v.getContext(), EnergyActivity.class));
@@ -146,6 +149,7 @@ public class MainActivity extends AppCompatActivity
 
                         break;
                     case R.id.fab_sheet_item_trash:
+                        startActivity(new Intent(v.getContext(), WasteActivity.class));
 
                         break;
                     case R.id.fab_sheet_item_self:

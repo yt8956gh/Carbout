@@ -45,5 +45,7 @@
     <string name="fuel">燃料</string>
     <string name="water">水資源</string>
     <string name="elec">電力</string>
+    <string name="waste">廢棄物</string>
+    <string name="commodity">商品</string>
 
 </resources>

@@ -1,41 +1,35 @@
-package com.nian.carbout.energy;
+package com.nian.carbout.waste;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nian.carbout.DBhelper;
 import com.nian.carbout.R;
-import com.nian.carbout.transport.Transport_Activity;
 
-import static android.view.View.GONE;
+public class WasteActivity extends AppCompatActivity {
 
-public class EnergyActivity extends AppCompatActivity {
-
-    private int energy_category=R.id.water,detail_answer=0,leave=0;
+    private int waste_category=R.id.incineration,detail_answer=0,leave=0;
     private Spinner spinner;
     private DBhelper dataHelper;
     private SQLiteDatabase db;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_energy);
+        setContentView(R.layout.activity_waste);
 
         getSupportActionBar().hide();
-        Toolbar toolbar = findViewById(R.id.toolbarEnergy);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
         dataHelper = new DBhelper(this, "co2.sqlite",null, 1);
         db = dataHelper.getWritableDatabase();
@@ -45,15 +39,16 @@ public class EnergyActivity extends AppCompatActivity {
     }
 
 
+
     public void setupButton()
     {
-        Button button = findViewById(R.id.button_in_energy);
-        Button cancel = findViewById(R.id.button_in_energy_cancel);
+        Button button = findViewById(R.id.button_in_waste);
+        Button cancel = findViewById(R.id.button_in_waste_cancel);
 
         cancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                EnergyActivity.this.finish();
+                WasteActivity.this.finish();
             }
         });
 
@@ -62,9 +57,9 @@ public class EnergyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                EditText et = findViewById(R.id.edit_energy);
+                EditText et = findViewById(R.id.edit_waste);
                 String input = et.getText().toString();
-                String notify,title,item_name;
+                String notify,title;
 
 
 
@@ -85,14 +80,14 @@ public class EnergyActivity extends AppCompatActivity {
                     title="計算結果";
 
                     //因為co2是float型態，所以必須cast成int
-                    if(((int)co2/1)!=0)
+                    if(co2>=1)
                     {
-                        notify = "本次能資源共消耗 " + (int)co2 +" kg";
+                        notify = "處理廢棄物共產生 " + (int)co2 +" kg的碳足跡";
                         saveData(co2*1000);
                     }
                     else if(((int)(co2*100))!=0) //大於0.01kg的
                     {
-                        notify = "本次能資源共消耗 " + (int)(co2*1000) +" g";
+                        notify = "處理廢棄物共產生 " + (int)(co2*1000) +" g的碳足跡";
                         saveData(co2*1000);
                     }
                     else
@@ -101,7 +96,6 @@ public class EnergyActivity extends AppCompatActivity {
                     }
 
                     dialogShow(v,title,notify);
-
                 }
             }
         });
@@ -112,85 +106,80 @@ public class EnergyActivity extends AppCompatActivity {
     {
         String[] item_array;
         String item_name;
+        Long id;
 
-        if(energy_category==R.id.water)
+        if(waste_category==R.id.incineration)
         {
-            item_array = getResources().getStringArray(R.array.water_item);
+            item_array = getResources().getStringArray(R.array.incineration_item);
+            item_name = item_array[detail_answer];
+            id = dataHelper.append(db, (int)co2,item_name+"焚化爐");
         }
-        else if(energy_category==R.id.power)
+        else if(waste_category==R.id.waste_water)
         {
-            item_array = getResources().getStringArray(R.array.power_item);
+            id = dataHelper.append(db, (int)co2,"廢水");
         }
-        else
+        else//recover
         {
-            item_array = getResources().getStringArray(R.array.fuel_item);
+            id = dataHelper.append(db, (int)co2,"回收");
         }
 
-        item_name = item_array[detail_answer];
-
-        Long id = dataHelper.append(db, (int)co2,item_name);
-        //Toast.makeText(EnergyActivity.this, "ID: "+ id, Toast.LENGTH_SHORT).show();
+        Toast.makeText(WasteActivity.this, "ID: "+ id, Toast.LENGTH_SHORT).show();
     }
 
     public float calculate_co2(int usage)
     {
-        if(energy_category==R.id.water)
-        {
-            return  0.167F*usage;
-        }
-        else if(energy_category==R.id.power)
+        if(waste_category==R.id.incineration)
         {
             switch (detail_answer)
             {
                 case 0:
-                    return 0.654F*usage;
+                    return 0.606F*usage;
                 case 1:
-                    return 0.00395F*usage;
+                    return 0.737F*usage;
                 case 2:
-                    return 0.00998F*usage;
+                    return 0.33F*usage;
             }
         }
-        else //R.id.fuel
+        else if(waste_category==R.id.waste_water)
         {
-            switch (detail_answer)
-            {
-                case 0:
-                    return 2.61F*usage;
-                case 1:
-                    return 0.00998F*usage;
-            }
+            return  0.000033F*usage;
         }
 
 
-        return  0;
+        return  0;//recover
     }
 
 
     public void setupSpinner()
     {
-        spinner = findViewById(R.id.spinner_choose_energy_detail);
-        ArrayAdapter<CharSequence> eAdapter;
+        spinner = findViewById(R.id.spinner_choose_waste_detail);
+        ArrayAdapter<CharSequence> wAdapter;
+        TextView tv =findViewById(R.id.waste_detail);
 
 
-        if(energy_category==R.id.power)
+        if(waste_category==R.id.incineration)
         {
-            eAdapter = ArrayAdapter.createFromResource(
-                    this,R.array.power_item, android.R.layout.simple_spinner_item);
+            wAdapter = ArrayAdapter.createFromResource(
+                    this,R.array.incineration_item, android.R.layout.simple_spinner_item);
+
+            tv.setText("焚化爐\n位　置");
         }
-        else if(energy_category==R.id.fuel)
+        else if(waste_category==R.id.waste_water)
         {
-            eAdapter = ArrayAdapter.createFromResource(
-                    this,R.array.fuel_item, android.R.layout.simple_spinner_item);
+            wAdapter = ArrayAdapter.createFromResource(
+                    this,R.array.waste_water_item, android.R.layout.simple_spinner_item);
+            tv.setText("類型");
         }
         else
         {
-            eAdapter = ArrayAdapter.createFromResource(
-                    this,R.array.water_item, android.R.layout.simple_spinner_item);
+            wAdapter = ArrayAdapter.createFromResource(
+                    this,R.array.recover_item, android.R.layout.simple_spinner_item);
+            tv.setText("類型");
         }
 
-        eAdapter.setDropDownViewResource(R.layout.spinner_style);
+        wAdapter.setDropDownViewResource(R.layout.spinner_style);
 
-        spinner.setAdapter(eAdapter);
+        spinner.setAdapter(wAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -214,7 +203,7 @@ public class EnergyActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                            if(leave==1) EnergyActivity.this.finish();//計算完成後結束現在的activity
+                        if(leave==1) WasteActivity.this.finish();//計算完成後結束現在的activity
 
                     }
                 })
@@ -223,7 +212,8 @@ public class EnergyActivity extends AppCompatActivity {
 
     public void onSelect(View view)
     {
-        energy_category=view.getId();
+        waste_category=view.getId();
         setupSpinner();
     }
 }
+

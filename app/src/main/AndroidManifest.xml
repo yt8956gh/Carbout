@@ -22,7 +22,9 @@
         <activity android:name=".transport.Transport_Activity" />
         <activity android:name=".analysis.AnalysisActivity" />
         <activity android:name=".news.NewsActivity" />
-        <activity android:name=".energy.EnergyActivity"></activity>
+        <activity android:name=".energy.EnergyActivity" />
+        <activity android:name=".waste.WasteActivity" />
+        <activity android:name=".commodity.CommodityActivity"></activity>
     </application>
 
 </manifest>
