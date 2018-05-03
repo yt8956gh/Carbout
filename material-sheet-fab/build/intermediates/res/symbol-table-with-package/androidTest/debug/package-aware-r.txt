@@ -1,4 +1,0 @@
-com.gordonwong.materialsheetfab.test
-int color background_dim_overlay 0x7f040000
-int interpolator msf_interpolator 0x7f030000
-int layout dim_overlay 0x7f020000

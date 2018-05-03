@@ -47,5 +47,6 @@
     <string name="elec">電力</string>
     <string name="waste">廢棄物</string>
     <string name="commodity">商品</string>
+    <string name="qr_code_scan">電子發票 QR code</string>
 
 </resources>
