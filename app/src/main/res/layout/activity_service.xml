@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".service.ServiceActivity"
+    android:background="@drawable/background">
+
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbarService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/toolbar_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:singleLine="true"
+            android:textColor="@color/background_card"
+            android:text="@string/service"
+            android:textSize="20sp" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView_service"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarService">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="服務類型"
+                android:textSize="@dimen/normal_textsize"
+                android:layout_margin="10dp"
+                android:gravity="center_horizontal"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@android:color/darker_gray"/>
+
+            <RadioGroup
+                android:id="@+id/service_category_RadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal"
+                android:divider="?android:attr/dividerHorizontal"
+                android:showDividers="middle">
+
+
+                <RadioButton
+                    android:id="@+id/hotel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:onClick="onSelect"
+                    android:text="住宿"
+                    android:textSize="@dimen/normal_textsize"
+                    />
+
+                <RadioButton
+                    android:id="@+id/shipment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:onClick="onSelect"
+                    android:checked="true"
+                    android:text="海運"
+                    android:textSize="@dimen/normal_textsize" />
+
+
+                <RadioButton
+                    android:id="@+id/airLift"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:onClick="onSelect"
+                    android:text="空運"
+                    android:textSize="@dimen/normal_textsize" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintTop_toBottomOf="@+id/cardView_service"
+        tools:layout_editor_absoluteX="5dp"
+        tools:ignore="MissingConstraints">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center_horizontal"
+                android:text="詳細資料"
+                android:textSize="@dimen/normal_textsize" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:id="@+id/incineration_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/service_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="交通工具"
+                    android:textColor="@color/theme_primary_dark2"
+                    android:textSize="@dimen/normal_textsize" />
+
+                <Spinner
+                    android:id="@+id/spinner_choose_service_detail"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginStart="24dp"
+                    android:spinnerMode="dialog" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_margin="5dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/service_detail2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="里程數"
+                    android:textColor="@color/theme_primary_dark2"
+                    android:textSize="@dimen/normal_textsize" />
+
+                <EditText
+                    android:id="@+id/edit_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number" />
+
+                <TextView
+                    android:id="@+id/service_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="km"
+                    android:textColor="@color/theme_primary_dark2"
+                    android:textSize="@dimen/normal_textsize" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/button_in_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/OK"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+    <Button
+        android:id="@+id/button_in_service_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:backgroundTint="@color/background_card"
+        android:text="取消"
+        app:layout_constraintEnd_toStartOf="@+id/button_in_service"
+        app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+
+</android.support.constraint.ConstraintLayout>

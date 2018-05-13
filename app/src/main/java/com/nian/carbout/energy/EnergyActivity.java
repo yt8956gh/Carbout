@@ -12,19 +12,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.nian.carbout.DBhelper;
+import com.nian.carbout.DataBaseHelper;
 import com.nian.carbout.R;
-import com.nian.carbout.transport.Transport_Activity;
-
-import static android.view.View.GONE;
 
 public class EnergyActivity extends AppCompatActivity {
 
     private int energy_category=R.id.water,detail_answer=0,leave=0;
     private Spinner spinner;
-    private DBhelper dataHelper;
+    private DataBaseHelper dataHelper;
     private SQLiteDatabase db;
 
 
@@ -37,7 +33,7 @@ public class EnergyActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbarEnergy);
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
-        dataHelper = new DBhelper(this, "co2.sqlite",null, 1);
+        dataHelper = new DataBaseHelper(this, "co2.sqlite",null, 1);
         db = dataHelper.getWritableDatabase();
 
         setupSpinner();

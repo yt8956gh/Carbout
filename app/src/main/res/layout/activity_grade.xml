@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".grade.GradeActivity">
+
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbarGrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/toolbar_waste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:singleLine="true"
+            android:textColor="@color/background_card"
+            android:text="@string/grade"
+            android:textSize="20sp"
+            tools:ignore="RtlHardcoded" />
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarGrade"
+        tools:layout_editor_absoluteY="61dp"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="5dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/if_tick_blue_619551"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarGrade"
+                    tools:layout_editor_absoluteY="61dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Level 1"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="使用大眾運輸工具達10公里"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            
+            
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="5dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/if_favourite_blue_619546"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarGrade"
+                    tools:layout_editor_absoluteY="61dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Level 2"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="使用大眾運輸工具達50公里"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@android:color/darker_gray"/>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="5dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/if_tick_red_619540"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarGrade"
+                    tools:layout_editor_absoluteY="61dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Level 1"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="單日碳排低於50公斤"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="5dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/if_tick_red_619540"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarGrade"
+                    tools:layout_editor_absoluteY="61dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Level 2"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="單日碳排低於25公斤"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="5dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/if_favourite_red_619542"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarGrade"
+                    tools:layout_editor_absoluteY="61dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Level 3"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="單日碳排低於15公斤"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </android.support.v7.widget.CardView>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@android:color/darker_gray"/>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="5dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/if_tick_green_619543"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarGrade"
+                    tools:layout_editor_absoluteY="61dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Level 1"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="連續3天紀錄碳足跡"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="5dp"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:orientation="horizontal"
+            android:layout_margin="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/if_favourite_green_619555"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left|center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/toolbarGrade"
+                tools:layout_editor_absoluteY="61dp">
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level 2"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="連續一週紀錄碳足跡"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+        
+        
+
+
+    </LinearLayout>
+    
+
+</android.support.constraint.ConstraintLayout>

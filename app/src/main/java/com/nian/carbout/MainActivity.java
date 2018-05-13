@@ -18,9 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 
 import com.github.mikephil.charting.components.AxisBase;
@@ -35,7 +35,11 @@ import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 import com.nian.carbout.analysis.AnalysisActivity;
 import com.nian.carbout.commodity.CommodityActivity;
 import com.nian.carbout.energy.EnergyActivity;
+import com.nian.carbout.grade.GradeActivity;
 import com.nian.carbout.news.NewsActivity;
+import com.nian.carbout.commodity_Search.CommoditySearchActivity;
+import com.nian.carbout.self.SelfActivity;
+import com.nian.carbout.service.ServiceActivity;
 import com.nian.carbout.transport.Transport_Activity;
 import com.nian.carbout.waste.WasteActivity;
 
@@ -45,6 +49,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static com.github.mikephil.charting.animation.Easing.EasingOption.EaseOutBack;
 
 
 public class MainActivity extends AppCompatActivity
@@ -139,21 +145,25 @@ public class MainActivity extends AppCompatActivity
                     case R.id.fab_sheet_item_transport:
                         startActivity(new Intent(v.getContext(),Transport_Activity.class));
                         break;
+
                     case R.id.fab_sheet_item_shopping:
                         startActivity(new Intent(v.getContext(), CommodityActivity.class));
                         break;
+
                     case R.id.fab_sheet_item_power:
                         startActivity(new Intent(v.getContext(), EnergyActivity.class));
                         break;
-                    case R.id.fab_sheet_item_service:
 
+                    case R.id.fab_sheet_item_service:
+                        startActivity(new Intent(v.getContext(), ServiceActivity.class));
                         break;
+
                     case R.id.fab_sheet_item_trash:
                         startActivity(new Intent(v.getContext(), WasteActivity.class));
-
                         break;
-                    case R.id.fab_sheet_item_self:
 
+                    case R.id.fab_sheet_item_self:
+                        startActivity(new Intent(v.getContext(), SelfActivity.class));
                         break;
                 }
             }
@@ -228,7 +238,7 @@ public class MainActivity extends AppCompatActivity
     private void setupChart()
     {
 
-        DBhelper dataHelper;
+        DataBaseHelper dataHelper;
         SQLiteDatabase db;
         int date_tmp,co2_tmp;
 
@@ -237,7 +247,7 @@ public class MainActivity extends AppCompatActivity
 
 
         //處理SQLite相關資料
-        dataHelper = new DBhelper(this, "co2.sqlite",null, 1);
+        dataHelper = new DataBaseHelper(this, "co2.sqlite",null, 1);
         db = dataHelper.getWritableDatabase();
 
         //依據條件搜尋SQLite，並回傳資料指標
@@ -291,6 +301,7 @@ public class MainActivity extends AppCompatActivity
         chart.setDescription(null);
         chart.getLegend().setEnabled(false);//將右下角的方塊拿掉
         configChartAxis(chart);
+        chart.animateXY(1000,1500);
         chart.invalidate(); // refresh
     }
 
@@ -375,10 +386,13 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_analysis) {
             startActivity(new Intent(MainActivity.this, AnalysisActivity.class));
+
         } else if (id == R.id.nav_grade) {
+            startActivity(new Intent(MainActivity.this,GradeActivity.class));
 
         } else if (id == R.id.nav_info) {
             startActivity(new Intent(MainActivity.this, NewsActivity.class));
+
         } else if (id == R.id.nav_list) {
 
         } else if (id == R.id.nav_share) {
@@ -387,7 +401,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

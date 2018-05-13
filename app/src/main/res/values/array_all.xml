@@ -13,4 +13,18 @@
     <array name="recover_item">
         <item>資源回收</item>
     </array>
+
+    <array name="hotel_item">
+        <item>一般住宿</item>
+    </array>
+
+    <array name="shipment_item">
+        <item>大型油輪</item>
+        <item>柴油輪船</item>
+        <item>汽油輪船</item>
+    </array>
+
+    <array name="airLift_item">
+        <item>一般客機</item>
+    </array>
 </resources>

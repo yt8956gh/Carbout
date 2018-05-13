@@ -12,9 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.nian.carbout.DBhelper;
+import com.nian.carbout.DataBaseHelper;
 import com.nian.carbout.R;
 
 
@@ -24,7 +23,7 @@ public class Transport_Activity extends AppCompatActivity {
     private int  TRA_answer=0;
     private int  payWay_answer= R.id.cash_pay;//注意初始值
     private int again=0;
-    private DBhelper dataHelper;
+    private DataBaseHelper dataHelper;
     private SQLiteDatabase db;
 
     @Override
@@ -41,7 +40,7 @@ public class Transport_Activity extends AppCompatActivity {
         // The database is not actually created or opened
         // until one of getWritableDatabase() or getReadableDatabase() is called.
         // #open a SQLite-file named "co2.sqlite"
-        dataHelper = new DBhelper(this, "co2.sqlite",null, 1);
+        dataHelper = new DataBaseHelper(this, "co2.sqlite",null, 1);
 
         db = dataHelper.getWritableDatabase();
 
@@ -96,6 +95,16 @@ public class Transport_Activity extends AppCompatActivity {
             }
         });
 
+
+        Button cancel = findViewById(R.id.button_in_transport_cancel);
+
+        cancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Transport_Activity.this.finish();
+            }
+        });
+
         //確認鍵
         Button button = findViewById(R.id.button_in_transport);
         button.setOnClickListener(new View.OnClickListener() {
@@ -124,12 +133,12 @@ public class Transport_Activity extends AppCompatActivity {
 
                     if(co2>1)
                     {
-                        notify = "本次搭乘共消耗 " + (int)co2 +" kg";
+                        notify = "本次搭乘共產生 " + (int)co2 +" kg";
                         saveData(co2*1000);
                     }
                     else if(co2>=0.01)
                     {
-                        notify = "本次搭乘共消耗 " + co2 +" kg";
+                        notify = "本次搭乘共產生 " + co2 +" kg";
                         saveData(co2*1000);
                     }
                     else

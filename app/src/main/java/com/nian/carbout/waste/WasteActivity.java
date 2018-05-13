@@ -14,14 +14,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nian.carbout.DBhelper;
+import com.nian.carbout.DataBaseHelper;
 import com.nian.carbout.R;
 
 public class WasteActivity extends AppCompatActivity {
 
     private int waste_category=R.id.incineration,detail_answer=0,leave=0;
     private Spinner spinner;
-    private DBhelper dataHelper;
+    private DataBaseHelper dataHelper;
     private SQLiteDatabase db;
 
     @Override
@@ -31,7 +31,7 @@ public class WasteActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        dataHelper = new DBhelper(this, "co2.sqlite",null, 1);
+        dataHelper = new DataBaseHelper(this, "co2.sqlite",null, 1);
         db = dataHelper.getWritableDatabase();
 
         setupSpinner();

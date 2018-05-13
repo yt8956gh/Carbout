@@ -9,8 +9,8 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DBhelper extends SQLiteOpenHelper {
-    public DBhelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+public class DataBaseHelper extends SQLiteOpenHelper {
+    public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -41,6 +41,18 @@ public class DBhelper extends SQLiteOpenHelper {
 
         ContentValues cv = new ContentValues();
         cv.put("date", Integer.parseInt(dateFormatter.format(dNow)));
+        cv.put("info", info);
+        cv.put("co2", String.valueOf(co2));
+        id = db.insert("main",null,cv);
+
+        return id;
+    }
+
+    public long append(SQLiteDatabase db, int co2, String info, int Date)
+    {
+        Long id;
+        ContentValues cv = new ContentValues();
+        cv.put("date", Date);
         cv.put("info", info);
         cv.put("co2", String.valueOf(co2));
         id = db.insert("main",null,cv);
