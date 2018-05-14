@@ -1,5 +1,7 @@
 package com.nian.carbout;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    //不能在onCreat方法前使用findViewById，因為這時VIEW還沒建構完成
+    //不能在onCreate方法前使用findViewById，因為這時VIEW還沒建構完成
 
     private int statusBarColor;
     private int[] usage = new int[7];
@@ -98,6 +100,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        startPropertyAnim();
     }
 
     @Override
@@ -107,6 +111,20 @@ public class MainActivity extends AppCompatActivity
         setupWeek();
         setupChart();
         setupTodayCo2();
+        startPropertyAnim();
+    }
+
+    private void startPropertyAnim() {
+
+        LinearLayout ll = findViewById(R.id.circle_in_main);
+        ObjectAnimator animX = ObjectAnimator.ofFloat(ll, "scaleY", 0f,1f);
+        ObjectAnimator animY = ObjectAnimator.ofFloat(ll, "scaleX", 0f,1f);
+
+        AnimatorSet animXY = new AnimatorSet();
+
+        animXY.setDuration(800);
+        animXY.play(animX).with(animY);
+        animXY.start();
     }
 
     private void setupFab() {
@@ -301,7 +319,7 @@ public class MainActivity extends AppCompatActivity
         chart.setDescription(null);
         chart.getLegend().setEnabled(false);//將右下角的方塊拿掉
         configChartAxis(chart);
-        chart.animateXY(1000,1500);
+        chart.animateXY(1000,1000);
         chart.invalidate(); // refresh
     }
 

@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="2sp"
+        android:layout_margin="8sp"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal">
 
@@ -22,7 +22,7 @@
             android:id="@+id/item_co2"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20sp"
+            android:layout_marginLeft="10sp"
             android:gravity="center_vertical|right"
             android:padding="2sp"
             android:text="CO2"
@@ -40,9 +40,8 @@
             tools:ignore="RtlHardcoded" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="2"
             android:orientation="vertical">
 
             <!-- 名稱 -->

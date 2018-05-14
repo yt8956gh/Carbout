@@ -179,7 +179,7 @@ public class CommodityActivity extends AppCompatActivity {
         String notify="",title = "計算結果";
 
 
-        if(have_date==1) notify = "購買日期:"+date/10000+"/"+date%10000/100+"/"+date%100+"\n";
+        if(have_date==1) notify = "購買日期:"+date/10000+"/"+date%10000/100+"/"+date%100+"\n\n";
 
         //Commodity_item;
         for(shop_list item: Commodity_item)
@@ -196,8 +196,8 @@ public class CommodityActivity extends AppCompatActivity {
                     //判斷DB內的單位，計算單位轉換加權數unit_change
                     unit_change = (item_DB.getUnit().equals("kg"))?1000:1;
                     //存入DB
-                    dataHelper.append(db, (int)item_DB.getCo2()*unit_change ,item_DB.getName(),date);
-                    detail_tmp=String.valueOf(item_DB.getCo2())+item_DB.getUnit();
+                    dataHelper.append(db, (int)item_DB.getCo2()*unit_change*item.getNumber() ,item_DB.getName(),date);
+                    detail_tmp=String.valueOf(item_DB.getCo2()*item.getNumber())+item_DB.getUnit();
                     co2_tmp = item_DB.getCo2();
                     //製作dialog內容
 
@@ -258,7 +258,7 @@ public class CommodityActivity extends AppCompatActivity {
 
             if(!spec.equals("-"))
             {
-                name = name + "\n" + spec;
+                name = name + spec;
             }
 
             Log.d("Item", name);

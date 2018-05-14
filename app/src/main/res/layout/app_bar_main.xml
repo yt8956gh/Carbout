@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.nian.carbout.MainActivity">
 
     <LinearLayout
@@ -15,10 +14,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@drawable/background"
+            android:layout_height="280dp"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/background">
 
             <LinearLayout
                 android:layout_width="250dp"
@@ -69,19 +68,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-
-
-
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/chart_line"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"/>
+                    android:layout_marginBottom="8dp"/>
 
                 <View
                     android:layout_width="fill_parent"
@@ -92,9 +87,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/co2_of_week"
-                    android:layout_margin="5dp"
                     android:textSize="18sp"
-                    android:gravity="center"/>
+                    android:padding="5dp"
+                    android:gravity="center_horizontal"/>
 
 
 
