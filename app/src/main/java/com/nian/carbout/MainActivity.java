@@ -13,6 +13,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -39,7 +40,6 @@ import com.nian.carbout.commodity.CommodityActivity;
 import com.nian.carbout.energy.EnergyActivity;
 import com.nian.carbout.grade.GradeActivity;
 import com.nian.carbout.news.NewsActivity;
-import com.nian.carbout.commodity_Search.CommoditySearchActivity;
 import com.nian.carbout.self.SelfActivity;
 import com.nian.carbout.service.ServiceActivity;
 import com.nian.carbout.transport.Transport_Activity;
@@ -51,8 +51,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import static com.github.mikephil.charting.animation.Easing.EasingOption.EaseOutBack;
 
 
 public class MainActivity extends AppCompatActivity
@@ -101,7 +99,20 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        startPropertyAnim();
+        startAnim();
+        setMarquee();
+    }
+
+    public void setMarquee()
+    {
+        TextView tv = findViewById(R.id.marquee_main);
+        tv.setText("台灣年碳排放量約為249.4百萬公噸，也就是一整年下來需要6412座大安森林公園才能完全吸收");
+        CardView cv = findViewById(R.id.CV_main);
+
+        ObjectAnimator anim = ObjectAnimator.ofFloat(cv,"scaleX",0f,1f);
+
+        anim.setDuration(300);
+        anim.start();
     }
 
     @Override
@@ -111,10 +122,11 @@ public class MainActivity extends AppCompatActivity
         setupWeek();
         setupChart();
         setupTodayCo2();
-        startPropertyAnim();
+        startAnim();
+        setMarquee();
     }
 
-    private void startPropertyAnim() {
+    private void startAnim() {
 
         LinearLayout ll = findViewById(R.id.circle_in_main);
         ObjectAnimator animX = ObjectAnimator.ofFloat(ll, "scaleY", 0f,1f);

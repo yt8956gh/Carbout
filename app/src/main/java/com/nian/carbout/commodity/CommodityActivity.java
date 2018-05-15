@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import info.debatty.java.stringsimilarity.JaroWinkler;
+
 public class CommodityActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST = 200;
@@ -46,7 +48,17 @@ public class CommodityActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commodity);
-        getSupportActionBar().hide();
+
+        try{
+            getSupportActionBar().hide();
+        }
+        catch(NullPointerException e)
+        {
+            e.printStackTrace();
+        }
+
+
+
 
 
         CardView card = findViewById(R.id.cardView_of_QR);
@@ -100,33 +112,30 @@ public class CommodityActivity extends AppCompatActivity {
 
     public void decode_QR(String str)
     {
-        String title = "掃描結果",notify="";
+        String title = "掃描結果",notify;
         int index_start=0;
         Commodity_item.clear();
 
         str = str.trim();//去除前後空白
 
+        //正規表示法regex
         String regex_left = "^[a–zA-z0-9]{10}[0-9]{7}[0-9]{4}[0-9a-z]{8}[0-9a-z]{8}[0-9]{8}[0-9]{8}.{24}(:.{10}:[0-9]+:[0-9]+:[0-9]+(:.+:[0-9.]+:[0-9.]+)*:*)?";
         String regex_right = "^\\*\\*(:*.+:[0-9.]+:[0-9.]+)*:*";
 
-        if(str.matches(regex_left))
+        if(str.matches(regex_left))//左側QR code
         {
             have_date=1;
 
             Toast.makeText(getApplicationContext(),"左側QR code掃描成功",Toast.LENGTH_LONG).show();
 
-            //String receipt_number = str.substring(0,10);
+            //String receipt_number = str.substring(0,10);//發票號碼，暫時不會用到
             String receipt_date = Integer.parseInt(str.substring(10,13))+1911+str.substring(13,15)+str.substring(15,17);
 
             date = Integer.parseInt(receipt_date);
 
             String[] split_item = str.split(":");
 
-            for (String aSplit_item : split_item) {
-                Log.d("Item", aSplit_item);
-            }
-
-            if(split_item.length>2)//切品項
+            if(split_item.length>2)//切割品項
             {
                 for(int i=5;i<split_item.length;i+=3)
                 {
@@ -135,7 +144,7 @@ public class CommodityActivity extends AppCompatActivity {
             }
 
         }
-        else if(str.matches(regex_right))
+        else if(str.matches(regex_right))//右側 QR code
         {
             have_date=0;
 
@@ -173,46 +182,65 @@ public class CommodityActivity extends AppCompatActivity {
 
     public void search_in_DB()
     {
-        int unit_change=0;
-        float co2_tmp=0f;
-        String detail_tmp="";
-        String notify="",title = "計算結果";
+        int unit_change,index,max_index=0;
+        double[] similarity = new double[Commodity_DB.size()];
+        double max=0f;
+        String title = "計算結果";
+        StringBuilder notify = new StringBuilder();
+        JaroWinkler jw = new JaroWinkler();//使用java-string-similarity實例
 
 
-        if(have_date==1) notify = "購買日期:"+date/10000+"/"+date%10000/100+"/"+date%100+"\n\n";
+        if(have_date==1) notify.append("購買日期:")
+                .append(date/10000)
+                .append("/")
+                .append(date%10000/100)
+                .append("/")
+                .append(date%100)
+                .append("\n\n");
 
         //Commodity_item;
         for(shop_list item: Commodity_item)
         {
-            Log.d("shop list", item.getName()+ " "+ item.getNumber());
+            //Log.d("shop list", item.getName()+ " "+ item.getNumber());
+            index=0;
 
+            //與資料庫中的品名進行比對
             for(list_item item_DB : Commodity_DB)
             {
-                Log.d("DB list", item_DB.getName()+ " " +item_DB.getCo2());
+                similarity[index] = jw.similarity(item.getName(),item_DB.getName());
+                //Log.d("相似度"+item.getName(), item_DB.getName()+ ":" + similarity[index]);
+                index++;
+            }
 
-                if(item_DB.getName().contains(item.getName()))
+            //找到最大相似度
+            for(int i=0;i<similarity.length;i++)
+            {
+                if(max<similarity[i])
                 {
-
-                    //判斷DB內的單位，計算單位轉換加權數unit_change
-                    unit_change = (item_DB.getUnit().equals("kg"))?1000:1;
-                    //存入DB
-                    dataHelper.append(db, (int)item_DB.getCo2()*unit_change*item.getNumber() ,item_DB.getName(),date);
-                    detail_tmp=String.valueOf(item_DB.getCo2()*item.getNumber())+item_DB.getUnit();
-                    co2_tmp = item_DB.getCo2();
-                    //製作dialog內容
-
-                    break;
+                    max = similarity[i];
+                    max_index = i;
                 }
             }
 
-            notify+=item.getName()+"*"+item.getNumber()+"    ";
-            notify+=(co2_tmp==0)?"暫無數據":detail_tmp;
-            notify+="\n";
+            Log.d("MAX Similarity", Commodity_DB.get(max_index).getName()+" : "+max);
 
+            notify.append(item.getName())
+                    .append(" * ")
+                    .append(item.getNumber())
+                    .append("    ");
 
+            if(max <= 0.75f) notify.append("暫無數據\n");//相似度太低
+            else notify.append(Commodity_DB.get(max_index).getCo2()).append(Commodity_DB.get(max_index).getUnit()).append("\n");
+
+            //存入DB前，先進行單位轉換
+            unit_change = (Commodity_DB.get(max_index).getUnit().equals("kg"))?1000:1;
+            //寫入DB
+            dataHelper.append(
+                    db, (int)Commodity_DB.get(max_index).getCo2()*unit_change*item.getNumber()
+                    ,Commodity_DB.get(max_index).getName(),date);
         }
 
-        dialogShow(CommodityActivity.this, title, notify);
+        dialogShow(CommodityActivity.this, title, notify.toString());
     }
 
     public void setDataBase()
@@ -224,7 +252,7 @@ public class CommodityActivity extends AppCompatActivity {
         Cursor c = db.rawQuery("SELECT * FROM Commodity", null);
         c.moveToFirst();
 
-        float testCO2=0;
+        float testCO2;
         String unit="",number="",total_string;
 
         for(int i = 0; i < c.getCount(); i++) {

@@ -42,5 +42,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:12.0.1'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:support-fragment:26.1.0'
+    compile 'info.debatty:java-string-similarity:1.1.0'
+
 
 }

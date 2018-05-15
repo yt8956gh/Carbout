@@ -9,9 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
-        <!-- Your FAB implementation -->
         <com.nian.carbout.Fab
             android:id="@+id/Add_fab"
             style="@style/Widget.MaterialSheetFab.Fab"
