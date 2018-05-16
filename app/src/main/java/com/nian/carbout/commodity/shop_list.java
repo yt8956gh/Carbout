@@ -4,10 +4,10 @@ public class shop_list {
 
 
     private String name;
-    private int number;
+    private float number;
     private int co2;
 
-    public shop_list(String name,int number)
+    public shop_list(String name,float number)
     {
         this.name = name;
         this.number = number;
@@ -26,7 +26,7 @@ public class shop_list {
         return name;
     }
 
-    public int getNumber() {
+    public float getNumber() {
         return number;
     }
 }

@@ -1,13 +1,21 @@
 package com.nian.carbout.self;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nian.carbout.MainActivity;
 import com.nian.carbout.R;
+
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -16,11 +24,13 @@ public class list_self_adapter extends RecyclerView.Adapter<list_self_adapter.Vi
 
     private ArrayList<list_item_self> data;
     private Context myContext;
+    private TextView tv;
 
-    public list_self_adapter(Context myContext, ArrayList<list_item_self> data)
+    public list_self_adapter(Context myContext, ArrayList<list_item_self> data,TextView tv)
     {
         this.data = data;
         this.myContext = myContext;
+        this.tv = tv;
     }
 
 
@@ -38,14 +48,52 @@ public class list_self_adapter extends RecyclerView.Adapter<list_self_adapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(list_self_adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(list_self_adapter.ViewHolder holder, final int position) {
 
-        DecimalFormat df=new DecimalFormat("#.#####");
-
-        String total = df.format(data.get(position).getCo2()) + "\n" + data.get(position).getUnit();
+        //DecimalFormat df=new DecimalFormat("#.#####");
 
         holder.item_name.setText(data.get(position).getName());
-        holder.item_co2.setText(total);
+        holder.item_co2.setText(data.get(position).getUnit());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+
+            @Override public void onClick(View v) {
+
+                final int unit = (data.get(position).getUnit().equals("kg"))?1000:1;
+
+                //因為self Activity 中的字串處裡需要用到space去定位子字串。
+                final String name = data.get(position).getName().replace(" ","");
+                String co2_unit = data.get(position).getCo2()+"\n單位:"+data.get(position).getUnit();
+
+                final EditText et = new EditText(v.getContext());
+                et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+                new AlertDialog.Builder(v.getContext())
+                        .setView(et)
+                        .setTitle("輸入用量\n")
+                        .setMessage("\n品名:"+name+"\n碳足跡:"+co2_unit)
+                        .setNeutralButton("取消",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                float co2 = Float.parseFloat(et.getText().toString())*data.get(position).getCo2();
+
+                                tv.setText(tv.getText().toString()+name+"     "+String.valueOf(co2)+" kg\n");
+
+
+                                //dataHelper.append(db, (int)data.get(position).getCo2()*unit, data.get(position).getName());
+                            }
+                        })
+                        .show();
+
+            }
+        });
     }
 
     @Override

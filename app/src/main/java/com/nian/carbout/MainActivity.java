@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -23,15 +25,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.stetho.Stetho;
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
@@ -45,6 +49,11 @@ import com.nian.carbout.service.ServiceActivity;
 import com.nian.carbout.transport.Transport_Activity;
 import com.nian.carbout.waste.WasteActivity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,6 +93,10 @@ public class MainActivity extends AppCompatActivity
 
         setupTodayCo2();
 
+        importDataBaseSelf();//從apk封包/res/raw中導入資料庫檔案
+        importDataBaseCommodity();
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.getBackground().setAlpha(0);
         toolbar.setTitle(" ");
@@ -109,10 +122,10 @@ public class MainActivity extends AppCompatActivity
         tv.setText("台灣年碳排放量約為249.4百萬公噸，也就是一整年下來需要6412座大安森林公園才能完全吸收");
         CardView cv = findViewById(R.id.CV_main);
 
-        ObjectAnimator anim = ObjectAnimator.ofFloat(cv,"scaleX",0f,1f);
+        //ObjectAnimator anim = ObjectAnimator.ofFloat(cv,"scaleX",0f,1f);
 
-        anim.setDuration(300);
-        anim.start();
+        //anim.setDuration(300);
+        //anim.start();
     }
 
     @Override
@@ -120,7 +133,8 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
 
         setupWeek();
-        setupChart();
+        setupBarChart();
+        //setupLineChart();
         setupTodayCo2();
         startAnim();
         setMarquee();
@@ -265,18 +279,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void setupChart()
+    private void setDateBase()
     {
-
         DataBaseHelper dataHelper;
         SQLiteDatabase db;
         int date_tmp,co2_tmp;
 
-
-        BarChart chart = (BarChart)findViewById(R.id.chart_line);
-
-
-        //處理SQLite相關資料
         dataHelper = new DataBaseHelper(this, "co2.sqlite",null, 1);
         db = dataHelper.getWritableDatabase();
 
@@ -285,10 +293,7 @@ public class MainActivity extends AppCompatActivity
         c.moveToFirst();
 
         //usage歸零，以免加到上一次的數據
-        for(int i=0;i<7;i++)
-        {
-            usage[i]=0;
-        }
+        for(int i=0;i<7;i++) usage[i]=0;
 
 
         //運算七天內的co2數據
@@ -303,6 +308,68 @@ public class MainActivity extends AppCompatActivity
         }
 
         c.close();//關閉SQLite指標
+    }
+
+
+    private void setupLineChart()
+    {
+
+        setDateBase();
+
+        LineChart chart = findViewById(R.id.chart_line);
+
+        BarChart chart2 = findViewById(R.id.chart_bar);
+        chart2.setVisibility(View.GONE);
+
+        //處理SQLite相關資料
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        //xAxis.setValueFormatter(formatter);
+
+        List entries = new ArrayList<>();
+
+        for(int i=0;i<7;i++)
+        {
+            entries.add(new BarEntry(i, usage[i]/1000));
+        }
+
+        LineDataSet set = new LineDataSet(entries, null);
+
+        //ColorSet只接受color.rgb型態的顏色敘述
+        set.setColors(Color.rgb(0, 88, 122),
+                Color.rgb(0, 136, 145));
+
+        set.setValueTextSize(10f);
+        set.setValueTextColor(Color.rgb(0, 88, 122));
+
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setDrawFilled(true);
+        set.setFillDrawable(getResources().getDrawable(R.drawable.background_with_transparent));
+
+
+        LineData data = new LineData(set);
+        //data.setBarWidth(0.9f); // set custom bar width
+        chart.setData(data);
+        //chart.setFitBars(true); // make the x-axis fit exactly all bars
+        chart.setDescription(null);
+        chart.getLegend().setEnabled(false);//將右下角的方塊拿掉
+        configChartAxis2(chart);
+        chart.animateY(1000);
+        chart.invalidate(); // refresh
+    }
+
+    private void setupBarChart()
+    {
+
+        setDateBase();
+
+        BarChart chart = findViewById(R.id.chart_bar);
+        LineChart chart2 = findViewById(R.id.chart_line);
+
+        chart2.setVisibility(View.GONE);
+
+        //處理SQLite相關資料
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
@@ -324,6 +391,8 @@ public class MainActivity extends AppCompatActivity
         set.setValueTextSize(10f);
         set.setValueTextColor(Color.rgb(0, 88, 122));
 
+
+
         BarData data = new BarData(set);
         data.setBarWidth(0.9f); // set custom bar width
         chart.setData(data);
@@ -337,6 +406,31 @@ public class MainActivity extends AppCompatActivity
 
     //設定chart線條格式
     private void configChartAxis(BarChart chart_bar){
+
+        //重寫x軸欄位
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return week.get((int) value);
+            }
+
+        };
+
+        XAxis xAxis = chart_bar.getXAxis();
+        xAxis.setValueFormatter(formatter);
+        //xAxis.setDrawGridLines(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        YAxis leftYAxis = chart_bar.getAxisLeft();
+        //leftYAxis.setGranularity(60);
+        leftYAxis.setEnabled(false);
+
+        YAxis RightYAxis = chart_bar.getAxisRight();
+        RightYAxis.setEnabled(false);//不顯示右側
+    }
+
+    private void configChartAxis2(LineChart chart_bar){
 
         //重寫x軸欄位
         IAxisValueFormatter formatter = new IAxisValueFormatter() {
@@ -436,4 +530,79 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
+    public void importDataBaseSelf() {
+
+        String dirPath="/data/data/com.nian.carbout/databases";//資料庫目錄
+        File dir = new File(dirPath);
+
+        if(!dir.exists()) {
+            dir.mkdir();
+        }
+
+        File file = new File(dir, "self.db");//目標檔案名稱
+
+        try {
+
+            if(!file.exists()) file.createNewFile();//創建目標複製檔案
+            else return;
+
+            //載入/res/raw中的資料庫檔案
+            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.self);
+            FileOutputStream fos = new FileOutputStream(file);
+            byte[] buffere=new byte[is.available()];
+            is.read(buffere);
+            fos.write(buffere);
+            is.close();
+            fos.close();
+
+        }
+        catch(FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void importDataBaseCommodity() {
+
+        String dirPath="/data/data/com.nian.carbout/databases";//資料庫目錄
+        File dir = new File(dirPath);
+
+        if(!dir.exists()) {
+            dir.mkdir();
+        }
+
+        File file = new File(dir, "resource.db");//目標檔案名稱
+
+        try {
+
+            if(!file.exists()) file.createNewFile();//創建目標複製檔案
+            else return;
+
+            //載入/res/raw中的資料庫檔案
+            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.resource);
+            FileOutputStream fos = new FileOutputStream(file);
+            byte[] buffer=new byte[is.available()];
+            is.read(buffer);
+            fos.write(buffer);
+            is.close();
+            fos.close();
+
+        }
+        catch(FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 }
+
+

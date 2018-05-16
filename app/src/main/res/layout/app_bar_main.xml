@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.nian.carbout.MainActivity">
+    tools:context="com.nian.carbout.MainActivity"
+    android:background="@drawable/background">
 
 
     <LinearLayout
@@ -17,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="280dp"
             android:layout_gravity="center"
-            android:orientation="vertical"
-            android:background="@drawable/background">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="250dp"
@@ -86,8 +86,15 @@
                     android:layout_height="1px"
                     android:background="@android:color/darker_gray"  />
 
-                <com.github.mikephil.charting.charts.BarChart
+                <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/chart_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/chart_bar"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="10dp"

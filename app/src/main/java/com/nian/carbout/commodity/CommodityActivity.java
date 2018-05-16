@@ -84,7 +84,6 @@ public class CommodityActivity extends AppCompatActivity {
             }
         });
 
-        importDataBase();
         setDataBase();
     }
 
@@ -113,7 +112,6 @@ public class CommodityActivity extends AppCompatActivity {
     public void decode_QR(String str)
     {
         String title = "掃描結果",notify;
-        int index_start=0;
         Commodity_item.clear();
 
         str = str.trim();//去除前後空白
@@ -139,7 +137,7 @@ public class CommodityActivity extends AppCompatActivity {
             {
                 for(int i=5;i<split_item.length;i+=3)
                 {
-                    Commodity_item.add(new shop_list(split_item[i],Integer.parseInt(split_item[i+1])));
+                    Commodity_item.add(new shop_list(split_item[i],Float.parseFloat(split_item[i+1])));
                 }
             }
 
@@ -157,19 +155,28 @@ public class CommodityActivity extends AppCompatActivity {
                 return;
             }
 
+
+            //去除開頭雜項
             if(str.indexOf(2)==':')//辨識開頭是**:
-                str=str.replace("**","");
-            else//還是**
                 str=str.replace("**:","");
+            else//還是**
+                str=str.replace("**","");
+
 
             String[] split_item = str.split(":");
 
-            for(int i=index_start;i<split_item.length;i+=3)
+
+            for(int i=0;i<split_item.length;i++)
             {
-                Commodity_item.add(new shop_list(split_item[i],Integer.parseInt(split_item[i+1])));
+                Log.d("test", i+":"+split_item[i]);
             }
 
-            //dialogShow(CommodityActivity.this, title, notify);
+            Log.d("length", split_item.length+"");
+
+            for(int i=0;i<split_item.length;i+=3)
+            {
+                Commodity_item.add(new shop_list(split_item[i],Float.parseFloat(split_item[i+1])));
+            }
         }
         else
         {
@@ -190,7 +197,7 @@ public class CommodityActivity extends AppCompatActivity {
         JaroWinkler jw = new JaroWinkler();//使用java-string-similarity實例
 
 
-        if(have_date==1) notify.append("購買日期:")
+        if(have_date==1) notify.append("購買日期：")
                 .append(date/10000)
                 .append("/")
                 .append(date%10000/100)
@@ -236,7 +243,7 @@ public class CommodityActivity extends AppCompatActivity {
             unit_change = (Commodity_DB.get(max_index).getUnit().equals("kg"))?1000:1;
             //寫入DB
             dataHelper.append(
-                    db, (int)Commodity_DB.get(max_index).getCo2()*unit_change*item.getNumber()
+                    db, (int)(Commodity_DB.get(max_index).getCo2()*unit_change*item.getNumber())
                     ,Commodity_DB.get(max_index).getName(),date);
         }
 
@@ -304,41 +311,6 @@ public class CommodityActivity extends AppCompatActivity {
         db = dataHelper.getWritableDatabase();
     }
 
-    public void importDataBase() {
-
-        String dirPath="/data/data/com.nian.carbout/databases";//資料庫目錄
-        File dir = new File(dirPath);
-
-        if(!dir.exists()) {
-            dir.mkdir();
-        }
-
-        File file = new File(dir, "resource.db");//目標檔案名稱
-
-        try {
-
-            if(!file.exists()) file.createNewFile();//創建目標複製檔案
-            else return;
-
-            //載入/res/raw中的資料庫檔案
-            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.resource);
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffere=new byte[is.available()];
-            is.read(buffere);
-            fos.write(buffere);
-            is.close();
-            fos.close();
-
-        }
-        catch(FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
 
 
 

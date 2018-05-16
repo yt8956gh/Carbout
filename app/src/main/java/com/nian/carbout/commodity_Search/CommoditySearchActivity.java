@@ -46,7 +46,6 @@ public class CommoditySearchActivity extends AppCompatActivity {
 
         dataHelper = new DataBaseHelper(this, "co2.sqlite",null, 1);
 
-        importDataBase();//從apk封包/res/raw中導入資料庫檔案
         setDataBase();
         setRecycleView();
 
@@ -168,39 +167,4 @@ public class CommoditySearchActivity extends AppCompatActivity {
             }
     }
 
-    public void importDataBase() {
-
-        String dirPath="/data/data/com.nian.carbout/databases";//資料庫目錄
-        File dir = new File(dirPath);
-
-        if(!dir.exists()) {
-            dir.mkdir();
-        }
-
-        File file = new File(dir, "resource.db");//目標檔案名稱
-
-        try {
-
-            if(!file.exists()) file.createNewFile();//創建目標複製檔案
-            else return;
-
-            //載入/res/raw中的資料庫檔案
-            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.resource);
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffere=new byte[is.available()];
-            is.read(buffere);
-            fos.write(buffere);
-            is.close();
-            fos.close();
-
-        }
-        catch(FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
 }
