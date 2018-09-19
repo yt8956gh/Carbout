@@ -1,4 +1,4 @@
 # Carbout
 
-Carbout , Carbon Out !! 
-An App for Tracking Daily Carbon Footprint
+<h3> Carbout , Carbon Out !! </h3> 
+<p>An App for Tracking Daily Carbon Footprint<p>
