@@ -48,5 +48,7 @@
     <string name="waste">廢棄物</string>
     <string name="commodity">商品</string>
     <string name="qr_code_scan">電子發票 QR code</string>
+    <string name="marquee_text">台灣年碳排放量約為249.4百萬公噸，也就是一整年下來需要6412座大安森林公園才能完全吸收</string>
+    <string name="DB_path">/data/data/com.nian.carbout/databases</string>
 
 </resources>

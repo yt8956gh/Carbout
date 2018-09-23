@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 26
@@ -29,20 +30,24 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile 'com.getbase:floatingactionbutton:1.10.1'
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
     //noinspection GradleCompatible
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
-    compile 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
 
-    //compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
-    compile project(path: ':material-sheet-fab')
+    //implementation 'com.github.navasmdc:MaterialDesign:1.5@aar'
+    implementation project(path: ':material-sheet-fab')
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-    compile 'com.facebook.stetho:stetho:1.5.0'
-    compile 'com.google.android.gms:play-services:12.0.1'
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:support-fragment:26.1.0'
-    compile 'info.debatty:java-string-similarity:1.1.0'
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.google.android.gms:play-services:12.0.1'
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.android.support:support-fragment:26.1.0'
+    implementation 'info.debatty:java-string-similarity:1.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 
+}
+repositories {
+    mavenCentral()
 }

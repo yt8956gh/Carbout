@@ -1,25 +1,27 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml:1:1-5:12
-INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml:1:1-5:12
-INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml:1:1-5:12
+ADDED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml:1:1-5:12
 	package
-		ADDED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml:1:11-52
-		INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
-		INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+		ADDED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml:1:11-52
+		INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+		INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml:1:1-5:12
 application
-ADDED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml:3:5-20
+ADDED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml:3:5-20
 uses-sdk
-INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
-INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
-INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
-INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
-		ADDED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
-		INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+		INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+		ADDED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+		INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
-		ADDED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
-		INJECTED from D:\APP_Prac\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+		INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+		ADDED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml
+		INJECTED from E:\Git\Carbout\material-sheet-fab\src\main\AndroidManifest.xml

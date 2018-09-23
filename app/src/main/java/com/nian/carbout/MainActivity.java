@@ -6,16 +6,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -34,8 +32,8 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
+//import com.github.mikephil.charting.data.LineData;
+//import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
@@ -60,6 +58,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity
@@ -93,8 +92,8 @@ public class MainActivity extends AppCompatActivity
 
         setupTodayCo2();
 
-        importDataBaseSelf();//從apk封包/res/raw中導入資料庫檔案
-        importDataBaseCommodity();
+        importDataBase("resource.db");//從apk封包/res/raw中導入資料庫檔案
+        importDataBase("self.db");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -119,8 +118,8 @@ public class MainActivity extends AppCompatActivity
     public void setMarquee()
     {
         TextView tv = findViewById(R.id.marquee_main);
-        tv.setText("台灣年碳排放量約為249.4百萬公噸，也就是一整年下來需要6412座大安森林公園才能完全吸收");
-        CardView cv = findViewById(R.id.CV_main);
+        tv.setText(R.string.marquee_text);
+        //CardView cv = findViewById(R.id.CV_main);
 
         //ObjectAnimator anim = ObjectAnimator.ofFloat(cv,"scaleX",0f,1f);
 
@@ -155,7 +154,7 @@ public class MainActivity extends AppCompatActivity
 
     private void setupFab() {
 
-        Fab fab = (Fab) findViewById(R.id.Add_fab);
+        Fab fab = findViewById(R.id.Add_fab);
         View sheetView = findViewById(R.id.fab_sheet);
         View overlay = findViewById(R.id.overlay);
         //設定清單中的普通item的顏色
@@ -252,9 +251,9 @@ public class MainActivity extends AppCompatActivity
     private void setupWeek()
     {
         Calendar cal = Calendar.getInstance();
-        Date dNow;
+        Date dNow ;
         String[] week_zh = new String[]{"日","一","二","三","四","五","六"};
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd", Locale.TAIWAN);
         //取得星期幾的整數值
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         cal.add(Calendar.DAY_OF_YEAR,-7);
@@ -275,6 +274,7 @@ public class MainActivity extends AppCompatActivity
 
         for(int i=0;i<7;i++)
         {
+
             Log.d("day_of_week" , date_of_week[i]+"");
         }
     }
@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity
         c.close();//關閉SQLite指標
     }
 
-
+    /*
     private void setupLineChart()
     {
 
@@ -358,6 +358,7 @@ public class MainActivity extends AppCompatActivity
         chart.animateY(1000);
         chart.invalidate(); // refresh
     }
+    */
 
     private void setupBarChart()
     {
@@ -375,7 +376,7 @@ public class MainActivity extends AppCompatActivity
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         //xAxis.setValueFormatter(formatter);
 
-        List entries = new ArrayList<>();
+        List<BarEntry> entries = new ArrayList<>();
 
         for(int i=0;i<7;i++)
         {
@@ -430,6 +431,7 @@ public class MainActivity extends AppCompatActivity
         RightYAxis.setEnabled(false);//不顯示右側
     }
 
+    /*
     private void configChartAxis2(LineChart chart_bar){
 
         //重寫x軸欄位
@@ -454,6 +456,7 @@ public class MainActivity extends AppCompatActivity
         YAxis RightYAxis = chart_bar.getAxisRight();
         RightYAxis.setEnabled(false);//不顯示右側
     }
+    */
 
 
     private int getStatusBarColor() {
@@ -472,7 +475,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -504,7 +507,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -531,31 +534,30 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void importDataBaseSelf() {
+    public void importDataBase(String DB_filename) {
 
-        String dirPath="/data/data/com.nian.carbout/databases";//資料庫目錄
+        String dirPath=getString(R.string.DB_path);//資料庫目錄
         File dir = new File(dirPath);
 
         if(!dir.exists()) {
-            dir.mkdir();
+            if(dir.mkdir()) Log.d("make folder","true");
         }
 
-        File file = new File(dir, "self.db");//目標檔案名稱
+        File file = new File(dir, DB_filename);//目標檔案名稱
 
         try {
 
-            if(!file.exists()) file.createNewFile();//創建目標複製檔案
+            if(!file.exists() && file.createNewFile()) Log.d("Copy File to dir: ","true"); //創建目標複製檔案
             else return;
 
             //載入/res/raw中的資料庫檔案
             InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.self);
             FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffere=new byte[is.available()];
-            is.read(buffere);
-            fos.write(buffere);
+            byte[] buffer_e=new byte[is.available()];
+
+            if(is.read(buffer_e)>0) fos.write(buffer_e);
             is.close();
             fos.close();
-
         }
         catch(FileNotFoundException e)
         {
@@ -566,43 +568,6 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
     }
-
-    public void importDataBaseCommodity() {
-
-        String dirPath="/data/data/com.nian.carbout/databases";//資料庫目錄
-        File dir = new File(dirPath);
-
-        if(!dir.exists()) {
-            dir.mkdir();
-        }
-
-        File file = new File(dir, "resource.db");//目標檔案名稱
-
-        try {
-
-            if(!file.exists()) file.createNewFile();//創建目標複製檔案
-            else return;
-
-            //載入/res/raw中的資料庫檔案
-            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.resource);
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffer=new byte[is.available()];
-            is.read(buffer);
-            fos.write(buffer);
-            is.close();
-            fos.close();
-
-        }
-        catch(FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
 }
 
 
