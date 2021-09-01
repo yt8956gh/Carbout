@@ -1,4 +1,13 @@
-# Carbout
+# Carbout, Carbon Out !!
 
-<h3> Carbout , Carbon Out !! </h3> 
-<p>An App for Tracking Daily Carbon Footprint<p>
+An App for Tracking Daily Carbon Footprint
+
+- Scan QR-code of invoice in Taiwan to get carbon footprint
+- Analyze user's carbon footprint
+- Calculate average carbon footprint with price when riding public transport
+
+
+### Screenshot
+![screenshot-1](https://yt8956gh.github.io/images/APP-intro.svg)
+
+
